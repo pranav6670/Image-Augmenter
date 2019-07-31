@@ -6,6 +6,7 @@ import numpy as np
 import sys
 import random
 
+
 class Stream(QtCore.QObject):
     newText = QtCore.pyqtSignal(str)
 
@@ -62,8 +63,6 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
         print("Displaying...")
         self.image = cv2.imread(self.fileName)
         cv2.imshow("Loaded Image", self.image)
-        # cv2.namedWindow("Loaded Image", cv2.WINDOW_NORMAL)
-        # cv2.resizeWindow("Loaded Image", 600, 600)
         print("Done Displaying")
         cv2.waitKey(0)
         cv2.destroyAllWindows()
@@ -94,9 +93,22 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
     def onaugment(self):
 
         # Customize your resolutions
-        for i in range(random.randrange(50, 500), random.randrange(100, 800)):
-            for j in range(random.randrange(50, 600), random.randrange(300, 500)):
-                self.resizeimage(self.image, i, j)
+        self.resizeimage(self.image, 400, 400)
+        self.resizeimage(self.image, 350, 300)
+        self.resizeimage(self.image, 100, 150)
+        self.resizeimage(self.image, 350, 200)
+        self.resizeimage(self.image, 300, 100)
+        self.resizeimage(self.image, 250, 140)
+        self.resizeimage(self.image, 200, 200)
+        self.resizeimage(self.image, 100, 100)
+        self.resizeimage(self.image, 200, 160)
+        self.resizeimage(self.image, 350, 200)
+        self.resizeimage(self.image, 200, 450)
+        self.resizeimage(self.image, 500, 500)
+        self.resizeimage(self.image, 440, 420)
+        self.resizeimage(self.image, 200, 380)
+        self.resizeimage(self.image, 180, 200)
+        self.resizeimage(self.image, 380, 330)
 
         # Customize padding here
         self.padimage(self.image,100, 0, 0, 0)
@@ -128,6 +140,8 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
         self.flipimage(self.image, 0) # horizontal
         self.flipimage(self.image, 1) # vertical
         self.flipimage(self.image, -1) # both
+
+
 
     def onaugmentclicked(self):
         self.augment.clicked.connect(self.onaugment)
