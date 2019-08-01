@@ -5,6 +5,7 @@ import os
 import numpy as np
 import sys
 import random
+import itertools
 
 
 class Stream(QtCore.QObject):
@@ -36,6 +37,12 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
         self.onshow()
         self.onexit()
         self.onaugmentclicked()
+
+    def seq(self, start, end, step):
+        if step == 0:
+            raise ValueError("step must not be 0")
+        sample_count = int(abs(end - start) / step)
+        return itertools.islice(itertools.count(start, step), sample_count)
 
     def onUpdateText(self, text):
         cursor = self.cmdop.textCursor()
@@ -90,7 +97,41 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
         cv2.imwrite(self.dirName+"/Flipped-"+str(dir)+self.extention, flippedimage)
         print("Flipping done with "+ str(dir))
 
+    def invertimage(self, image, channel):
+        image = (channel - image)
+        cv2.imwrite(self.dirName+"/Inverted-"+str(channel)+self.extention, image)
+        print("Inverted with channel -"+str(channel))
+
+    def gammacorrection(self, image, gamma=1.0):
+        invgamma = 1.0 / gamma
+        table = np.array([((i / 255.0) ** invgamma) * 255
+                      for i in np.arange(0, 256)]).astype("uint8")
+        image = cv2.LUT(image, table)
+        if gamma >= 1:
+            cv2.imwrite(self.dirName+"/Light"+str(gamma)+self.extention, image)
+            print("Gamma correction with <1.0(light)-"+str(gamma))
+        else:
+            cv2.imwrite(self.dirName+"/Dark"+str(gamma)+self.extention, image)
+            print("Gamma correction with gamma >1(dark)-"+str(gamma))
+
+    def add_light_color(self, image, color, gamma=1.0):
+        invgamma = 1.0 / gamma
+        image = (color - image)
+        table = np.array([((i / 255.0) ** invgamma) * 255
+                      for i in np.arange(0, 256)]).astype("uint8")
+        image=cv2.LUT(image, table)
+        if gamma >= 1:
+            cv2.imwrite(self.dirName+"/Light"+str(gamma)+str(color)+self.extention, image)
+            print("Gamma correction with <1.0(light)-"+str(gamma)+str(color))
+        else:
+            cv2.imwrite(self.dirName+"/Dark"+str(gamma)+str(color)+self.extention, image)
+            print("Gamma correction with gamma >1(dark)-"+str(gamma)+str(color))
+
+
+
+
     def onaugment(self):
+        self.image = cv2.imread(self.fileName)
 
         # Customize your resolutions
         self.resizeimage(self.image, 400, 400)
@@ -141,7 +182,15 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
         self.flipimage(self.image, 1) # vertical
         self.flipimage(self.image, -1) # both
 
+        for i in range(0, 255, 1):
+            self.invertimage(self.image, i)
 
+        for i in self.seq(1, 6, 0.01):
+            self.gammacorrection(self.image, i)
+
+        for i in range(0, 255, 10):
+            for j in self.seq(1, 6, 0.1):
+                self.add_light_color(self.image, i, j)
 
     def onaugmentclicked(self):
         self.augment.clicked.connect(self.onaugment)
