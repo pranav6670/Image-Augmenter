@@ -189,7 +189,7 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
             self.gammacorrection(self.image, i)
 
         for i in range(0, 255, 10):
-            for j in self.seq(1, 6, 0.1):
+            for j in self.seq(1, 5, 0.1):
                 self.add_light_color(self.image, i, j)
 
     def onaugmentclicked(self):
