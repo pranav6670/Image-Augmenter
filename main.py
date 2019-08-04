@@ -146,78 +146,107 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
         print("Hued with-"+str(hue))
 
     def multiplywith(self, image, B, G, R):
-        image = image * [B, G, R]
-        cv2.imwrite(self.dirName+"/Multiplied with-"+"("+str(B)+", "+str(G)+", "+str(R)+")"+self.extention, image)
+        mulimage = image * [B, G, R]
+        cv2.imwrite(self.dirName+"/Multiplied with-"+"("+str(B)+", "+str(G)+", "+str(R)+")"+self.extention, mulimage)
         print("Multiplied with"+"("+str(B)+", "+str(G)+", "+str(R)+")")
+
+    def gaussianblur(self, image, blur):
+        gbimage = cv2.GaussianBlur(image, (5, 5), blur)
+        cv2.imwrite(self.dirName+"/Gaussian blurred-"+str(blur)+self.extention, gbimage)
+        print("Gaussian blurred with "+str(blur))
+
+    def avgblur(self, image, kernalcoeff):
+        avgimage = cv2.blur(image, (kernalcoeff, kernalcoeff))
+        cv2.imwrite(self.dirName+"/Average blurred-"+"("+str(kernalcoeff)+", "+str(kernalcoeff)+")"+self.extention,
+                    avgimage)
+        print("Average blurred with"+" ("+str(kernalcoeff)+", "+str(kernalcoeff)+")")
+
+    def medblur(self, image, shift):
+        medimage = cv2.medianBlur(image, shift)
+        cv2.imwrite(self.dirName+"/Median blurred-"+str(shift)+self.extention, medimage)
+        print("Median blurred with "+str(shift))
 
     def onaugment(self):
         self.image = cv2.imread(self.fileName)
 
         # Customize your resolutions
-        self.resizeimage(self.image, 400, 400)
-        self.resizeimage(self.image, 350, 300)
-        self.resizeimage(self.image, 100, 150)
-        self.resizeimage(self.image, 350, 200)
-        self.resizeimage(self.image, 300, 100)
-        self.resizeimage(self.image, 250, 140)
-        self.resizeimage(self.image, 200, 200)
-        self.resizeimage(self.image, 100, 100)
-        self.resizeimage(self.image, 200, 160)
-        self.resizeimage(self.image, 350, 200)
-        self.resizeimage(self.image, 200, 450)
-        self.resizeimage(self.image, 500, 500)
-        self.resizeimage(self.image, 440, 420)
-        self.resizeimage(self.image, 200, 380)
-        self.resizeimage(self.image, 180, 200)
-        self.resizeimage(self.image, 380, 330)
+        # self.resizeimage(self.image, 400, 400)
+        # self.resizeimage(self.image, 350, 300)
+        # self.resizeimage(self.image, 100, 150)
+        # self.resizeimage(self.image, 350, 200)
+        # self.resizeimage(self.image, 300, 100)
+        # self.resizeimage(self.image, 250, 140)
+        # self.resizeimage(self.image, 200, 200)
+        # self.resizeimage(self.image, 100, 100)
+        # self.resizeimage(self.image, 200, 160)
+        # self.resizeimage(self.image, 350, 200)
+        # self.resizeimage(self.image, 200, 450)
+        # self.resizeimage(self.image, 500, 500)
+        # self.resizeimage(self.image, 440, 420)
+        # self.resizeimage(self.image, 200, 380)
+        # self.resizeimage(self.image, 180, 200)
+        # self.resizeimage(self.image, 380, 330)
 
         # Customize padding here
-        self.padimage(self.image,100, 0, 0, 0)
-        self.padimage(self.image, 0, 100, 0, 0)
-        self.padimage(self.image, 0, 0, 100, 0)
-        self.padimage(self.image, 0, 0, 0, 100)
-        self.padimage(self.image, 100, 100, 0, 0)
-        self.padimage(self.image, 0, 100, 100, 0)
-        self.padimage(self.image, 0, 0, 100, 100)
-        self.padimage(self.image, 100, 0, 100, 0)
-        self.padimage(self.image, 0, 100, 0, 100)
-        self.padimage(self.image, 200, 0, 0, 0)
-        self.padimage(self.image, 0, 200, 0, 0)
-        self.padimage(self.image, 0, 0, 200, 0)
-        self.padimage(self.image, 0, 0, 0, 200)
-        self.padimage(self.image, 200, 200, 0, 0)
-        self.padimage(self.image, 0, 200, 200, 0)
-        self.padimage(self.image, 0, 0, 200, 200)
-        self.padimage(self.image, 200, 0, 200, 0)
-        self.padimage(self.image, 0, 200, 0, 200)
+        # self.padimage(self.image,100, 0, 0, 0)
+        # self.padimage(self.image, 0, 100, 0, 0)
+        # self.padimage(self.image, 0, 0, 100, 0)
+        # self.padimage(self.image, 0, 0, 0, 100)
+        # self.padimage(self.image, 100, 100, 0, 0)
+        # self.padimage(self.image, 0, 100, 100, 0)
+        # self.padimage(self.image, 0, 0, 100, 100)
+        # self.padimage(self.image, 100, 0, 100, 0)
+        # self.padimage(self.image, 0, 100, 0, 100)
+        # self.padimage(self.image, 200, 0, 0, 0)
+        # self.padimage(self.image, 0, 200, 0, 0)
+        # self.padimage(self.image, 0, 0, 200, 0)
+        # self.padimage(self.image, 0, 0, 0, 200)
+        # self.padimage(self.image, 200, 200, 0, 0)
+        # self.padimage(self.image, 0, 200, 200, 0)
+        # self.padimage(self.image, 0, 0, 200, 200)
+        # self.padimage(self.image, 200, 0, 200, 0)
+        # self.padimage(self.image, 0, 200, 0, 200)
 
         # Customize cropping here
-        self.cropimage(self.image, 100, 400, 0, 350)
-        self.cropimage(self.image, 100, 400, 100, 450)
-        self.cropimage(self.image, 0, 300, 0, 350)
-        self.cropimage(self.image, 0, 300, 100, 450)
-        self.cropimage(self.image, 100, 300, 100 ,350)
+        # self.cropimage(self.image, 100, 400, 0, 350)
+        # self.cropimage(self.image, 100, 400, 100, 450)
+        # self.cropimage(self.image, 0, 300, 0, 350)
+        # self.cropimage(self.image, 0, 300, 100, 450)
+        # self.cropimage(self.image, 100, 300, 100 ,350)
+        #
+        # self.flipimage(self.image, 0) # horizontal
+        # self.flipimage(self.image, 1) # vertical
+        # self.flipimage(self.image, -1) # both
+        #
+        # for i in range(0, 255, 25):
+        #     self.invertimage(self.image, i)
+        #     self.saturateimage(self.image, i)
+        #     self.hueimage(self.image, i)
+        #
+        # for i in self.seq(1, 6, 0.1):
+        #     self.gammacorrection(self.image, i)
+        #
+        # for i in range(0, 255, 50):
+        #     for j in self.seq(1, 5, 0.1):
+        #         self.add_light_color(self.image, i, j)
+        #
+        # for x in self.seq(0.1, 1, 0.2):
+        #     for y in self.seq(0.1, 1, 0.2):
+        #         for z in self.seq(0.1, 1, 0.2):
+        #             self.multiplywith(self.image, x, y, z)
 
-        self.flipimage(self.image, 0) # horizontal
-        self.flipimage(self.image, 1) # vertical
-        self.flipimage(self.image, -1) # both
+        for t in self.seq(0, 5, 0.5):
+            self.gaussianblur(self.image, t)
 
-        for i in range(0, 255, 25):
-            self.invertimage(self.image, i)
-            self.saturateimage(self.image, i)
-            self.hueimage(self.image, i)
+        for t in range(1, 12, 1):
+            self.avgblur(self.image, t)
 
-        for i in self.seq(1, 6, 0.1):
-            self.gammacorrection(self.image, i)
+        for c in range(1, 13, 2):
+            self.medblur(self.image, c)
 
-        for i in range(0, 255, 50):
-            for j in self.seq(1, 5, 0.1):
-                self.add_light_color(self.image, i, j)
 
-        for x in self.seq(0.1, 1, 0.2):
-            for y in self.seq(0.1, 1, 0.2):
-                for z in self.seq(0.1, 1, 0.2):
-                    self.multiplywith(self.image, x, y, z)
+
+
 
     def onaugmentclicked(self):
         self.augment.clicked.connect(self.onaugment)
