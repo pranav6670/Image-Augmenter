@@ -26,9 +26,9 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
         self.setWindowTitle("Image Augmenter")
         if not os.path.exists(self.dirName):
             os.mkdir(self.dirName)
-            print("Directory " , self.dirName ,  " Created ")
+            print("Directory ", self.dirName, "Created")
         else:
-            print("Directory " , self.dirName ,  " already exists")
+            print("Directory ", self.dirName, " already exists")
 
         sys.stdout = Stream(newText=self.onUpdateText)
 
@@ -127,8 +127,28 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
             cv2.imwrite(self.dirName+"/Dark"+str(gamma)+str(color)+self.extention, image)
             print("Gamma correction with gamma >1(dark)-"+str(gamma)+str(color))
 
+    def saturateimage(self, image, saturation):
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+        x = image[:, :, 2]
+        x = np.where(x <= 255 - saturation, x + saturation, 255)
+        image[:, :, 2] = x
+        image = cv2.cvtColor(image, cv2.COLOR_HSV2BGR)
+        cv2.imwrite(self.dirName+"/Saturated with"+str(saturation)+self.extention, image)
+        print("Saturated with-"+str(saturation))
 
+    def hueimage(self, image, hue):
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+        x = image[:, :, 2]
+        x = np.where(x <= 255 - hue, x - hue, 255)
+        image[:, :, 2] = x
+        image = cv2.cvtColor(image, cv2.COLOR_HSV2BGR)
+        cv2.imwrite(self.dirName+"/Hued with"+str(hue)+self.extention, image)
+        print("Hued with-"+str(hue))
 
+    def multiplywith(self, image, B, G, R):
+        image = image * [B, G, R]
+        cv2.imwrite(self.dirName+"/Multiplied with-"+"("+str(B)+", "+str(G)+", "+str(R)+")"+self.extention, image)
+        print("Multiplied with"+"("+str(B)+", "+str(G)+", "+str(R)+")")
 
     def onaugment(self):
         self.image = cv2.imread(self.fileName)
@@ -182,15 +202,22 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
         self.flipimage(self.image, 1) # vertical
         self.flipimage(self.image, -1) # both
 
-        for i in range(0, 255, 1):
+        for i in range(0, 255, 25):
             self.invertimage(self.image, i)
+            self.saturateimage(self.image, i)
+            self.hueimage(self.image, i)
 
-        for i in self.seq(1, 6, 0.01):
+        for i in self.seq(1, 6, 0.1):
             self.gammacorrection(self.image, i)
 
-        for i in range(0, 255, 10):
+        for i in range(0, 255, 50):
             for j in self.seq(1, 5, 0.1):
                 self.add_light_color(self.image, i, j)
+
+        for x in self.seq(0.1, 1, 0.2):
+            for y in self.seq(0.1, 1, 0.2):
+                for z in self.seq(0.1, 1, 0.2):
+                    self.multiplywith(self.image, x, y, z)
 
     def onaugmentclicked(self):
         self.augment.clicked.connect(self.onaugment)
