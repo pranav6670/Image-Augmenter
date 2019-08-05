@@ -268,6 +268,27 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
         cv2.imwrite(self.dirName+"/Embossing_total"+self.extention, total)
         print("Done with Embossing")
 
+
+    def edges(self, image):
+        # Sobel
+        for i in range(1, 10, 2):
+            sobelx = cv2.Sobel(image, cv2.CV_16U, 1, 0, ksize=i)
+            cv2.imwrite(self.dirName+"/Sobel_x"+str(i)+self.extention, sobelx)
+            sobely = cv2.Sobel(image, cv2.CV_16U, 0, 1, ksize=i)
+            cv2.imwrite(self.dirName+"/Sobel_y"+str(i)+self.extention, sobely)
+            total = sobelx + sobely
+            cv2.imwrite(self.dirName+"/Sobel_total"+self.extention, total)
+        print("Done with Sobel operator")
+
+        # Scharr
+        scharrx = cv2.Scharr(image, -1, 1, 0)
+        cv2.imwrite(self.dirName+"/Scharr_x"+self.extention, scharrx)
+        scharry = cv2.Scharr(image, -1, 0, 1)
+        cv2.imwrite(self.dirName+"/Scharr_y"+self.extention, scharry)
+        total = scharrx + scharry
+        cv2.imwrite(self.dirName+"/Scharr_total"+self.extention, total)
+        print("Done with Scharr operator")
+
     def onaugment(self):
         self.image = cv2.imread(self.fileName)
 
@@ -362,6 +383,7 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
 
         self.sharpenimage(self.image)
         self.embossimage(self.image)
+        self.edges(self.image)
 
     def onaugmentclicked(self):
         self.augment.clicked.connect(self.onaugment)
