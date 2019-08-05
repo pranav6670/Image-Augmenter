@@ -24,6 +24,7 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
 
         self.dirName = 'Augmented'
         self.setWindowTitle("Image Augmenter")
+        self.setWindowIcon(QtGui.QIcon('icon.png'))
         if not os.path.exists(self.dirName):
             os.mkdir(self.dirName)
             print("Directory ", self.dirName, "Created")
@@ -193,6 +194,80 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
         cv2.imwrite(self.dirName+"/Black Hat-"+" ("+str(shift)+str(shift)+")"+self.extention, blackhat)
 
 
+    def sharpenimage(self, image):
+        kernal_pos = np.array([
+            [0, 1, 0],
+            [1, -4, 1],
+            [0, 1, 0]
+        ])
+
+        kernal_neg = np.array([
+            [0, -1, 0],
+            [-1, 4, -1],
+            [0, -1, 0]
+        ])
+
+        image_outward = cv2.filter2D(image, -1, kernal_pos)
+        image_inward = cv2.filter2D(image, -1, kernal_neg)
+        cv2.imwrite(self.dirName+"/Sharpen-Outward"+self.extention, image_outward)
+        print("Sharpened with outward edges")
+        cv2.imwrite(self.dirName+"/Sharpen-Inward"+self.extention, image_inward)
+        print("Sharpened with inward edges")
+
+
+    def embossimage(self, image):
+        kernal1 = np.array([
+            [0, 1, 0],
+            [0, 0, 0],
+            [0, -1, 0]
+        ])
+
+        kernal2 = np.array([
+            [1, 0, 0],
+            [0, 0, 0],
+            [0, 0, -1]
+        ])
+
+        kernal3 = np.array([
+            [0, 0, 0],
+            [1, 0, -1],
+            [0, 0, 0]
+        ])
+
+        kernal4 = np.array([
+            [0, 0, 1],
+            [0, 0, 0],
+            [-1, 0, 0]
+        ])
+
+        kernal5 = np.array([
+            [-1, 0, 0],
+            [0, 0, 0],
+            [0, 0, 1]
+        ])
+
+        kernal6 = np.array([
+            [0, 0, -1],
+            [0, 0, 0],
+            [1, 0, 0]
+        ])
+
+        im1 = cv2.filter2D(image, -1, kernal1)
+        cv2.imwrite(self.dirName+"/Embossed1"+self.extention, im1)
+        im2 = cv2.filter2D(image, -1, kernal2)
+        cv2.imwrite(self.dirName+"/Embossed2"+self.extention, im2)
+        im3 = cv2.filter2D(image, -1, kernal3)
+        cv2.imwrite(self.dirName+"/Embossed3"+self.extention, im3)
+        im4 = cv2.filter2D(image, -1, kernal4)
+        cv2.imwrite(self.dirName+"/Embossed4"+self.extention, im4)
+        im5 = cv2.filter2D(image, -1, kernal5)
+        cv2.imwrite(self.dirName+"/Embossed5"+self.extention, im5)
+        im6 = cv2.filter2D(image, -1, kernal6)
+        cv2.imwrite(self.dirName+"/Embossed6"+self.extention, im6)
+        total = im1 + im2 + im3 + im4 + im5 + im6
+        cv2.imwrite(self.dirName+"/Embossing_total"+self.extention, total)
+        print("Done with Embossing")
+
     def onaugment(self):
         self.image = cv2.imread(self.fileName)
 
@@ -215,7 +290,7 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
         self.resizeimage(self.image, 380, 330)
 
         # Customize padding here
-        self.padimage(self.image,100, 0, 0, 0)
+        self.padimage(self.image, 100, 0, 0, 0)
         self.padimage(self.image, 0, 100, 0, 0)
         self.padimage(self.image, 0, 0, 100, 0)
         self.padimage(self.image, 0, 0, 0, 100)
@@ -284,6 +359,9 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
         self.bilblur(self.image, 40, 75, 75)
         self.bilblur(self.image, 50, 100, 100)
         self.bilblur(self.image, 50, 75, 75)
+
+        self.sharpenimage(self.image)
+        self.embossimage(self.image)
 
     def onaugmentclicked(self):
         self.augment.clicked.connect(self.onaugment)
