@@ -166,74 +166,101 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
         cv2.imwrite(self.dirName+"/Median blurred-"+str(shift)+self.extention, medimage)
         print("Median blurred with "+str(shift))
 
+    def bilblur(self, image, d, color, space):
+        bilblur = cv2.bilateralFilter(image, d, color, space)
+        cv2.imwrite(self.dirName+"/Bilateral blurred- "+str(d)+", "+str(color)+", "+str(space)+self.extention,
+                    bilblur)
+        print("Bilateral blurred with "+str(d)+", "+str(color)+", "+str(space))
+
+    def morphops(self, image, shift):
+        kernal = np.ones((shift, shift), dtype=np.uint8)
+        erodedimage = cv2.erode(image, kernal, iterations=1)
+        cv2.imwrite(self.dirName+"/Eroded-"+" ("+str(shift)+str(shift)+")"+self.extention, erodedimage)
+        dilatedimage = cv2.dilate(image, kernal, iterations=1)
+        cv2.imwrite(self.dirName+"/Dilated-"+" ("+str(shift)+str(shift)+")"+self.extention, dilatedimage)
+        openedimage = cv2.morphologyEx(image, cv2.MORPH_OPEN, kernal)
+        cv2.imwrite(self.dirName+"/Opened-"+" ("+str(shift)+str(shift)+")"+self.extention, openedimage)
+        closedimage = cv2.morphologyEx(image, cv2.MORPH_CLOSE, kernal)
+        cv2.imwrite(self.dirName+"/Closed-"+" ("+str(shift)+str(shift)+")"+self.extention, closedimage)
+        morphgradim = cv2.morphologyEx(image, cv2.MORPH_GRADIENT, kernal)
+        cv2.imwrite(self.dirName+"/Morphological gradient-"+" ("+str(shift)+str(shift)+")"+self.extention, morphgradim)
+
+    def morphop2(self, image, shift):
+        kernal = np.ones((shift, shift), dtype=np.uint8)
+        tophat = cv2.morphologyEx(image, cv2.MORPH_TOPHAT, kernal)
+        cv2.imwrite(self.dirName+"/Top Hat-"+" ("+str(shift)+str(shift)+")"+self.extention, tophat)
+        blackhat = cv2.morphologyEx(image, cv2.MORPH_BLACKHAT, kernal)
+        cv2.imwrite(self.dirName+"/Black Hat-"+" ("+str(shift)+str(shift)+")"+self.extention, blackhat)
+
+
     def onaugment(self):
         self.image = cv2.imread(self.fileName)
 
         # Customize your resolutions
-        # self.resizeimage(self.image, 400, 400)
-        # self.resizeimage(self.image, 350, 300)
-        # self.resizeimage(self.image, 100, 150)
-        # self.resizeimage(self.image, 350, 200)
-        # self.resizeimage(self.image, 300, 100)
-        # self.resizeimage(self.image, 250, 140)
-        # self.resizeimage(self.image, 200, 200)
-        # self.resizeimage(self.image, 100, 100)
-        # self.resizeimage(self.image, 200, 160)
-        # self.resizeimage(self.image, 350, 200)
-        # self.resizeimage(self.image, 200, 450)
-        # self.resizeimage(self.image, 500, 500)
-        # self.resizeimage(self.image, 440, 420)
-        # self.resizeimage(self.image, 200, 380)
-        # self.resizeimage(self.image, 180, 200)
-        # self.resizeimage(self.image, 380, 330)
+        self.resizeimage(self.image, 400, 400)
+        self.resizeimage(self.image, 350, 300)
+        self.resizeimage(self.image, 100, 150)
+        self.resizeimage(self.image, 350, 200)
+        self.resizeimage(self.image, 300, 100)
+        self.resizeimage(self.image, 250, 140)
+        self.resizeimage(self.image, 200, 200)
+        self.resizeimage(self.image, 100, 100)
+        self.resizeimage(self.image, 200, 160)
+        self.resizeimage(self.image, 350, 200)
+        self.resizeimage(self.image, 200, 450)
+        self.resizeimage(self.image, 500, 500)
+        self.resizeimage(self.image, 440, 420)
+        self.resizeimage(self.image, 200, 380)
+        self.resizeimage(self.image, 180, 200)
+        self.resizeimage(self.image, 380, 330)
 
         # Customize padding here
-        # self.padimage(self.image,100, 0, 0, 0)
-        # self.padimage(self.image, 0, 100, 0, 0)
-        # self.padimage(self.image, 0, 0, 100, 0)
-        # self.padimage(self.image, 0, 0, 0, 100)
-        # self.padimage(self.image, 100, 100, 0, 0)
-        # self.padimage(self.image, 0, 100, 100, 0)
-        # self.padimage(self.image, 0, 0, 100, 100)
-        # self.padimage(self.image, 100, 0, 100, 0)
-        # self.padimage(self.image, 0, 100, 0, 100)
-        # self.padimage(self.image, 200, 0, 0, 0)
-        # self.padimage(self.image, 0, 200, 0, 0)
-        # self.padimage(self.image, 0, 0, 200, 0)
-        # self.padimage(self.image, 0, 0, 0, 200)
-        # self.padimage(self.image, 200, 200, 0, 0)
-        # self.padimage(self.image, 0, 200, 200, 0)
-        # self.padimage(self.image, 0, 0, 200, 200)
-        # self.padimage(self.image, 200, 0, 200, 0)
-        # self.padimage(self.image, 0, 200, 0, 200)
+        self.padimage(self.image,100, 0, 0, 0)
+        self.padimage(self.image, 0, 100, 0, 0)
+        self.padimage(self.image, 0, 0, 100, 0)
+        self.padimage(self.image, 0, 0, 0, 100)
+        self.padimage(self.image, 100, 100, 0, 0)
+        self.padimage(self.image, 0, 100, 100, 0)
+        self.padimage(self.image, 0, 0, 100, 100)
+        self.padimage(self.image, 100, 0, 100, 0)
+        self.padimage(self.image, 0, 100, 0, 100)
+        self.padimage(self.image, 200, 0, 0, 0)
+        self.padimage(self.image, 0, 200, 0, 0)
+        self.padimage(self.image, 0, 0, 200, 0)
+        self.padimage(self.image, 0, 0, 0, 200)
+        self.padimage(self.image, 200, 200, 0, 0)
+        self.padimage(self.image, 0, 200, 200, 0)
+        self.padimage(self.image, 0, 0, 200, 200)
+        self.padimage(self.image, 200, 0, 200, 0)
+        self.padimage(self.image, 0, 200, 0, 200)
 
         # Customize cropping here
-        # self.cropimage(self.image, 100, 400, 0, 350)
-        # self.cropimage(self.image, 100, 400, 100, 450)
-        # self.cropimage(self.image, 0, 300, 0, 350)
-        # self.cropimage(self.image, 0, 300, 100, 450)
-        # self.cropimage(self.image, 100, 300, 100 ,350)
-        #
-        # self.flipimage(self.image, 0) # horizontal
-        # self.flipimage(self.image, 1) # vertical
-        # self.flipimage(self.image, -1) # both
-        #
-        # for i in range(0, 255, 25):
-        #     self.invertimage(self.image, i)
-        #     self.saturateimage(self.image, i)
-        #     self.hueimage(self.image, i)
-        #
-        # for i in self.seq(1, 6, 0.1):
-        #     self.gammacorrection(self.image, i)
-        #
-        # for i in range(0, 255, 50):
-        #     for j in self.seq(1, 5, 0.1):
-        #         self.add_light_color(self.image, i, j)
-        #
-        # for x in self.seq(0.1, 1, 0.2):
-        #     for y in self.seq(0.1, 1, 0.2):
-        #         for z in self.seq(0.1, 1, 0.2):
-        #             self.multiplywith(self.image, x, y, z)
+        self.cropimage(self.image, 100, 400, 0, 350)
+        self.cropimage(self.image, 100, 400, 100, 450)
+        self.cropimage(self.image, 0, 300, 0, 350)
+        self.cropimage(self.image, 0, 300, 100, 450)
+        self.cropimage(self.image, 100, 300, 100 ,350)
+
+        self.flipimage(self.image, 0) # horizontal
+        self.flipimage(self.image, 1) # vertical
+        self.flipimage(self.image, -1) # both
+
+        for i in range(0, 255, 25):
+            self.invertimage(self.image, i)
+            self.saturateimage(self.image, i)
+            self.hueimage(self.image, i)
+
+        for i in self.seq(1, 6, 0.1):
+            self.gammacorrection(self.image, i)
+
+        for i in range(0, 255, 50):
+            for j in self.seq(1, 5, 0.1):
+                self.add_light_color(self.image, i, j)
+
+        for x in self.seq(0.1, 1, 0.2):
+            for y in self.seq(0.1, 1, 0.2):
+                for z in self.seq(0.1, 1, 0.2):
+                    self.multiplywith(self.image, x, y, z)
 
         for t in self.seq(0, 5, 0.5):
             self.gaussianblur(self.image, t)
@@ -244,9 +271,19 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
         for c in range(1, 13, 2):
             self.medblur(self.image, c)
 
+        self.morphops(self.image, 2)
+        self.morphop2(self.image, 100)
+        self.morphops(self.image, 3)
+        self.morphop2(self.image, 150)
+        self.morphops(self.image, 4)
+        self.morphop2(self.image, 200)
 
-
-
+        self.bilblur(self.image, 9, 75, 75)
+        self.bilblur(self.image, 12, 100, 100)
+        self.bilblur(self.image, 25, 100, 100)
+        self.bilblur(self.image, 40, 75, 75)
+        self.bilblur(self.image, 50, 100, 100)
+        self.bilblur(self.image, 50, 75, 75)
 
     def onaugmentclicked(self):
         self.augment.clicked.connect(self.onaugment)

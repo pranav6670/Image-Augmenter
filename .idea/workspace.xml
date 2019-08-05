@@ -21,8 +21,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="334">
-              <caret line="191" column="34" selection-start-line="191" selection-start-column="34" selection-end-line="191" selection-end-column="34" />
+            <state relative-caret-position="132">
+              <caret line="278" column="37" selection-start-line="278" selection-start-column="37" selection-end-line="278" selection-end-column="37" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -66,8 +66,8 @@
         <subPane>
           <expand>
             <path>
-              <item name="Image Augmenter" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Image Augmenter" type="462c0819:PsiDirectoryNode" />
+              <item name="Image-Augmenter" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Image-Augmenter" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -215,6 +215,9 @@
       <workItem from="1564646282495" duration="5562000" />
       <workItem from="1564681721503" duration="669000" />
       <workItem from="1564765912284" duration="795000" />
+      <workItem from="1564939905040" duration="1794000" />
+      <workItem from="1564973874844" duration="766000" />
+      <workItem from="1564974769879" duration="3335000" />
     </task>
     <task id="LOCAL-00001" summary="Added File Browsing and image loading,showing">
       <created>1564383989573</created>
@@ -230,17 +233,24 @@
       <option name="project" value="LOCAL" />
       <updated>1564426779564</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Added blurring operations">
+      <created>1564941622459</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1564941622459</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="43321000" />
+    <option name="totallyTimeSpent" value="49216000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="-4" width="1368" height="773" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1689394" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17575757" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -253,7 +263,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.32884902" />
       <window_info anchor="bottom" id="Terminal" order="11" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.32884902" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -270,10 +280,11 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added File Browsing and image loading,showing" />
     <MESSAGE value="Added resizing and QTabWidget" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added resizing and QTabWidget" />
+    <MESSAGE value="Added blurring operations" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added blurring operations" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Image_Augmenter$main.coverage" NAME="main Coverage Results" MODIFIED="1564674175412" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Image_Augmenter$main.coverage" NAME="main Coverage Results" MODIFIED="1564978327733" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Image_Augmenter$test.coverage" NAME="test Coverage Results" MODIFIED="1564409965569" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Image_Augmenter$testing.coverage" NAME="testing Coverage Results" MODIFIED="1564456590694" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
@@ -285,8 +296,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="191" column="34" selection-start-line="191" selection-start-column="34" selection-end-line="191" selection-end-column="34" />
+        <state relative-caret-position="132">
+          <caret line="278" column="37" selection-start-line="278" selection-start-column="37" selection-end-line="278" selection-end-column="37" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
