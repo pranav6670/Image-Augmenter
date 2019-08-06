@@ -276,18 +276,150 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
             cv2.imwrite(self.dirName+"/Sobel_x"+str(i)+self.extention, sobelx)
             sobely = cv2.Sobel(image, cv2.CV_16U, 0, 1, ksize=i)
             cv2.imwrite(self.dirName+"/Sobel_y"+str(i)+self.extention, sobely)
-            total = sobelx + sobely
-            cv2.imwrite(self.dirName+"/Sobel_total"+self.extention, total)
-        print("Done with Sobel operator")
+            total_sobel = sobelx + sobely
+            cv2.imwrite(self.dirName+"/Sobel_total"+self.extention, total_sobel)
+        print("Done with Sobel's operator")
 
         # Scharr
         scharrx = cv2.Scharr(image, -1, 1, 0)
         cv2.imwrite(self.dirName+"/Scharr_x"+self.extention, scharrx)
         scharry = cv2.Scharr(image, -1, 0, 1)
         cv2.imwrite(self.dirName+"/Scharr_y"+self.extention, scharry)
-        total = scharrx + scharry
-        cv2.imwrite(self.dirName+"/Scharr_total"+self.extention, total)
-        print("Done with Scharr operator")
+        total_scharr = scharrx + scharry
+        cv2.imwrite(self.dirName+"/Scharr_total"+self.extention, total_scharr)
+        print("Done with Scharr's operator")
+
+        # Robert
+        kernal1 = np.array([
+            [1, 0],
+            [0, -1]
+        ])
+        kernal2 = np.array([
+            [0, 1],
+            [-1, 0]
+        ])
+        robert1 = cv2.filter2D(image, -1, kernal1)
+        cv2.imwrite(self.dirName+"/Robert1"+self.extention, robert1)
+        robert2 = cv2.filter2D(image, -1, kernal2)
+        cv2.imwrite(self.dirName+"/Robert2"+self.extention, robert2)
+        total_robert = robert1 + robert2
+        cv2.imwrite(self.dirName+"/Robert_total"+self.extention, total_robert)
+        print("Done with Robert's operator")
+
+        # Canny
+        canny1 = cv2.Canny(image, 100, 200)
+        cv2.imwrite(self.dirName+"/Canny1"+self.extention, canny1)
+        canny2 = cv2.Canny(image, 200, 400)
+        cv2.imwrite(self.dirName+"/Canny2"+self.extention, canny2)
+        canny3 = cv2.Canny(image, 300, 600)
+        cv2.imwrite(self.dirName+"/Canny3"+self.extention, canny3)
+        print("Done with Canny's operator")
+
+        # Prewitt
+        prewittx = np.array([
+            [1, 0, -1],
+            [1, 0, -1],
+            [1, 0, -1]
+        ])
+        prewitty = np.array([
+            [1, 1, 1],
+            [0, 0, 0],
+            [-1, -1, -1]
+        ])
+
+        prx = cv2.filter2D(image, -1, prewittx)
+        cv2.imwrite(self.dirName+"/Prewitt_x"+self.extention, prx)
+        pry = cv2.filter2D(image, -1, prewitty)
+        cv2.imwrite(self.dirName+"/Prewitt_y"+self.extention, pry)
+        total_prewitt  = prx + pry
+        cv2.imwrite(self.dirName+"/Prewitt_total"+self.extention, total_prewitt)
+        print("Done with Prewitt's operator")
+
+        # Kirsh
+        north = np.array([
+            [-3, -3, 5],
+            [-3, 0, 5],
+            [-3, -3, 5]
+        ])
+        imnorth = cv2.filter2D(image, -1, north)
+        north_west = np.array([
+            [-3, 5, 5],
+            [-3, 0, 5],
+            [-3, -3, -3]
+        ])
+        imnorthwest = cv2.filter2D(image, -1, north_west)
+        north_east = np.array([
+            [-3, -3, -3],
+            [-3, 0, 5],
+            [-3, 5, 5]
+        ])
+        imnortheast = cv2.filter2D(image, -1, north_east)
+        south = np.array([
+            [5, -3, -3],
+            [5, 0, -3],
+            [5, -3, -3]
+        ])
+        imsouth = cv2.filter2D(image, -1, south)
+        south_west = np.array([
+            [5, 5, -3],
+            [5, 0, -3],
+            [-3, -3, -3]
+        ])
+        imsouthwest = cv2.filter2D(image, -1, south_west)
+        south_east = np.array([
+            [-3, -3, -3],
+            [5, 0, -3],
+            [5, 5, -3]
+        ])
+        imsoutheast = cv2.filter2D(image, -1, south_east)
+        west = np.array([
+            [5, 5, 5],
+            [-3, 0, -3],
+            [-3, -3, -3]
+        ])
+        imwest = cv2.filter2D(image, -1, west)
+        east = np.array([
+            [-3, -3, -3],
+            [-3, 0, -3],
+            [5, 5, 5]
+        ])
+        imeast = cv2.filter2D(image, -1, east)
+
+        cv2.imwrite(self.dirName+"/Kirsh_N"+self.extention, imnorth)
+        cv2.imwrite(self.dirName+"/Kirsh_NE"+self.extention, imnortheast)
+        cv2.imwrite(self.dirName+"/Kirsh_NW"+self.extention, imnorthwest)
+        cv2.imwrite(self.dirName+"/Kirsh_S"+self.extention, imsouth)
+        cv2.imwrite(self.dirName+"/Kirsh_SE"+self.extention, imsoutheast)
+        cv2.imwrite(self.dirName+"/Kirsh_SW"+self.extention, imsouthwest)
+        cv2.imwrite(self.dirName+"/Kirsh_W"+self.extention, imwest)
+        cv2.imwrite(self.dirName+"/Kirsh_E"+self.extention, imeast)
+        total_kirsh = imnorth + imsouth + imeast + imwest + imsouthwest + imsoutheast + imnorthwest + imnortheast
+        cv2.imwrite(self.dirName+"/Kirsh_total"+self.extention, total_kirsh)
+        print("Done with Kirsh's operator")
+
+    def colorconv(self, image):
+        grayimage = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        cv2.imwrite(self.dirName+"/Grayimage"+self.extention, grayimage)
+        hsvimage = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+        cv2.imwrite(self.dirName+"/HSVimage"+self.extention, hsvimage)
+        Ycrcbimage = cv2.cvtColor(image, cv2.COLOR_BGR2YCrCb)
+        cv2.imwrite(self.dirName+"/YCrCbimage"+self.extention, Ycrcbimage)
+        labimage = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
+        cv2.imwrite(self.dirName+"/LABimage"+self.extention, labimage)
+        hlsimage = cv2.cvtColor(image, cv2.COLOR_BGR2HLS)
+        cv2.imwrite(self.dirName+"/HLSimage"+self.extention, hlsimage)
+        luvimage = cv2.cvtColor(image, cv2.COLOR_BGR2LUV)
+        cv2.imwrite(self.dirName+"/LUVimage"+self.extention, luvimage)
+        rgbimage = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        cv2.imwrite(self.dirName+"/RGBimage"+self.extention, rgbimage)
+        rgbaimage = cv2.cvtColor(image, cv2.COLOR_BGR2RGBA)
+        cv2.imwrite(self.dirName+"/RGBAimage"+self.extention, rgbaimage)
+        yuvimage = cv2.cvtColor(image, cv2.COLOR_BGR2YUV)
+        cv2.imwrite(self.dirName+"/YUVimage"+self.extention, yuvimage)
+        print("Done with color conversions")
+
+
+
 
     def onaugment(self):
         self.image = cv2.imread(self.fileName)
@@ -384,6 +516,7 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
         self.sharpenimage(self.image)
         self.embossimage(self.image)
         self.edges(self.image)
+        self.colorconv(self.image)
 
     def onaugmentclicked(self):
         self.augment.clicked.connect(self.onaugment)
