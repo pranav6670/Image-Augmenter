@@ -18,7 +18,7 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
         super(MainApp, self).__init__(parent)
         self.setupUi(self)
 
-        self.extention = '.jpg'
+        self.extension = '.jpg'
 
         self.dirName = 'Augmented'
         self.setWindowTitle("Image Augmenter")
@@ -69,7 +69,7 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
 
     def onaugment(self):
         self.image = cv2.imread(self.fileName)
-        aughelper.callall(self.dirName, self.extention, self.image)
+        aughelper.callall(self.dirName, self.extension, self.image)
 
 
     def onaugmentclicked(self):
