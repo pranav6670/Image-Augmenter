@@ -2,6 +2,10 @@ import cv2
 import numpy as np
 import itertools
 import random
+from skimage import io
+from skimage.util import img_as_float
+from skimage.segmentation import slic
+from skimage.exposure import rescale_intensity
 
 def seq(start, end, step):
     if step == 0:
@@ -448,6 +452,45 @@ def transform_image(dirName, extension, image):
     cv2.imwrite(dirName + "/Transformation-" + str(4) + extension, image)
     print("Done with transformations")
 
+def superpixel(dirName, extention, image, segments):
+    seg = segments
+
+    def segment(image, mask):
+        (B, G, R) = cv2.split(image.astype("float"))
+        R = np.ma.masked_array(R, mask=mask)
+        G = np.ma.masked_array(G, mask=mask)
+        B = np.ma.masked_array(B, mask=mask)
+
+        rg = np.absolute(R - G)
+        yb = np.absolute(0.5 * (R + G) - B)
+
+        stdRoot = np.sqrt((rg.std() ** 2) + (yb.std() ** 2))
+        meanRoot = np.sqrt((rg.mean() ** 2) + (yb.mean() ** 2))
+
+        return stdRoot + (0.3 * meanRoot)
+
+    orig = cv2.imread(image)
+    vis = np.zeros(orig.shape[:2], dtype="float")
+    image = io.imread(image)
+    segments = slic(img_as_float(image), n_segments=segments,
+                    slic_zero=True)
+    for v in np.unique(segments):
+        mask = np.ones(image.shape[:2])
+        mask[segments == v] = 0
+
+        C = segment(orig, mask)
+        vis[segments == v] = C
+
+    vis = rescale_intensity(vis, out_range=(0, 255)).astype("uint8")
+
+    alpha = 0.6
+    overlay = np.dstack([vis] * 3)
+    output = orig.copy()
+    cv2.addWeighted(overlay, alpha, output, 1 - alpha, 0, output)
+    cv2.imwrite(dirName + "/superpixels-" + str(seg) + extention, output)
+    print("Done with superpixels")
+
+
 def callall(dirName, extension, image):
     resizeimage(dirName, extension, image, 400, 400)
     resizeimage(dirName, extension, image, 350, 300)
@@ -562,3 +605,11 @@ def callall(dirName, extension, image):
         translateimage(dirName, extension, image, -150, 150)
         translateimage(dirName, extension, image, 150, -150)
         translateimage(dirName, extension, image, -150, -150)
+
+        superpixel(dirName, extension, image, 50)
+        superpixel(dirName, extension, image, 100)
+        superpixel(dirName, extension, image, 150)
+        superpixel(dirName, extension, image, 200)
+        superpixel(dirName, extension, image, 255)
+        superpixel(dirName, extension, image, 75)
+        superpixel(dirName, extension, image, 125)
