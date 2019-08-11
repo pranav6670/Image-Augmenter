@@ -145,6 +145,27 @@ def morphops(dirName, extension, image, shift):
     cv2.imwrite(dirName + "/Morphological gradient-" + " (" + str(shift) + str(shift) + ")" + extension, morphgradim)
 
 
+def skelotonize(dirName, extention, image):
+    imagegray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    size = np.size(imagegray)
+    skel = np.zeros(imagegray.shape, np.uint8)
+    ret, imagegray = cv2.threshold(imagegray, 127, 255, 0)
+    element = cv2.getStructuringElement(cv2.MORPH_CROSS, (3, 3))
+    a = False
+    while(not a):
+        eroded = cv2.erode(imagegray, element)
+        temp = cv2.dilate(eroded,element)
+        temp = cv2.subtract(imagegray,temp)
+        skel = cv2.bitwise_or(skel,temp)
+        imagegray = eroded.copy()
+        zeros = size - cv2.countNonZero(imagegray)
+        if zeros == size:
+            a = True
+
+    cv2.imwrite(dirName+"/Skelotonize"+extention, skel)
+    print("Done with skelotonizing")
+
+
 def morphop2(dirName, extension, image, shift):
     kernal = np.ones((shift, shift), dtype=np.uint8)
     tophat = cv2.morphologyEx(image, cv2.MORPH_TOPHAT, kernal)
@@ -240,7 +261,7 @@ def edges(dirName, extension, image):
         cv2.imwrite(dirName + "/Sobel_total" + extension, total_sobel)
         print("Done with Sobel's operator")
 
-        # Scharr
+    # Scharr
     scharrx = cv2.Scharr(image, -1, 1, 0)
     cv2.imwrite(dirName + "/Scharr_x" + extension, scharrx)
     scharry = cv2.Scharr(image, -1, 0, 1)
@@ -522,9 +543,32 @@ def superpixel(dirName, extention, image, segments):
     cv2.imwrite(dirName + "/superpixels-" + str(seg) + extention, output)
     print("Done with superpixels")
 
+def histeq(dirName, extention, image):
+    img = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    histeqimage = cv2.equalizeHist(img)
+    cv2.imwrite(dirName + "/Histogram_equalized" + extention, histeqimage)
+    print("Done with Histogram Equalization")
+
+
+def affine(dirName, extention, image, angle):
+    srcTri = np.array( [[0, 0], [image.shape[1] - 1, 0], [0, image.shape[0] - 1]] ).astype(np.float32)
+    dstTri = np.array( [[0, image.shape[1]*0.33], [image.shape[1]*0.85, image.shape[0]*0.25],
+                        [image.shape[1]*0.15, image.shape[0]*0.7]] ).astype(np.float32)
+    warp_mat = cv2.getAffineTransform(srcTri, dstTri)
+    warp_dst = cv2.warpAffine(image, warp_mat, (image.shape[1], image.shape[0]))
+    # Rotating the image after Warp
+    center = (warp_dst.shape[1]//2, warp_dst.shape[0]//2)
+    angle = angle
+    scale = 1
+    rot_mat = cv2.getRotationMatrix2D( center, angle, scale )
+    warp_rotate_dst = cv2.warpAffine(warp_dst, rot_mat, (warp_dst.shape[1], warp_dst.shape[0]))
+    cv2.imwrite(dirName+"/Warp"+extention, warp_dst)
+    cv2.imwrite(dirName+"/Warp&Rotate"+str(angle)+str(scale)+extention, warp_rotate_dst)
+    print("Done with affine transforms")
+
 
 def callall(dirName, extension, image):
-    print("in call all")
+    # print("in call all")
     resizeimage(dirName, extension, image, 400, 400)
     resizeimage(dirName, extension, image, 350, 300)
     resizeimage(dirName, extension, image, 100, 150)
@@ -542,7 +586,7 @@ def callall(dirName, extension, image):
     resizeimage(dirName, extension, image, 180, 200)
     resizeimage(dirName, extension, image, 380, 330)
 
-    print("Done resizing")
+    # print("Done resizing")
     # Customize padding here
     padimage(dirName, extension, image, 100, 0, 0, 0)
     padimage(dirName, extension, image, 0, 100, 0, 0)
@@ -562,7 +606,7 @@ def callall(dirName, extension, image):
     padimage(dirName, extension, image, 0, 0, 200, 200)
     padimage(dirName, extension, image, 200, 0, 200, 0)
     padimage(dirName, extension, image, 0, 200, 0, 200)
-    print("Done padding")
+    # print("Done padding")
     # Customize cropping here
     cropimage(dirName, extension, image, 100, 400, 0, 350)
     cropimage(dirName, extension, image, 100, 400, 100, 450)
@@ -570,12 +614,12 @@ def callall(dirName, extension, image):
     cropimage(dirName, extension, image, 0, 300, 100, 450)
     cropimage(dirName, extension, image, 100, 300, 100, 350)
 
-    print("Done cropping")
+    # print("Done cropping")
     flipimage(dirName, extension, image, 0)  # horizontal
     flipimage(dirName, extension, image, 1)  # vertical
     flipimage(dirName, extension, image, -1)  # both
 
-    print("Done flipping")
+    # print("Done flipping")
     for i in range(0, 255, 25):
         print(i)
         invertimage(dirName, extension, image, i)
@@ -650,3 +694,9 @@ def callall(dirName, extension, image):
         superpixel(dirName, extension, image, 255)
         superpixel(dirName, extension, image, 75)
         superpixel(dirName, extension, image, 125)
+
+        histeq(dirName, extension, image)
+        skelotonize(dirName, extension, image)
+
+        for x in range(0, 360, 30):
+                affine(dirName, extension, image, x)
