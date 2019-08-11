@@ -5,11 +5,13 @@ import os
 import sys
 import aughelper
 
+
 class Stream(QtCore.QObject):
     newText = QtCore.pyqtSignal(str)
 
     def write(self, text):
         self.newText.emit(str(text))
+
 
 class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
 
@@ -58,9 +60,9 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
     def openFileNameDialog(self):
         options = QtWidgets.QFileDialog.Options()
         options |= QtWidgets.QFileDialog.DontUseNativeDialog
-        self.fileName, _ = QtWidgets.QFileDialog.getOpenFileName(self,"QFileDialog.getOpenFileName()",
-                                                            "","All Files (*);;Python Files (*.py)",
-                                                            options=options)
+        self.fileName, _ = QtWidgets.QFileDialog.getOpenFileName(self, "QFileDialog.getOpenFileName()",
+                                                                 "", "All Files (*);;Python Files (*.py)",
+                                                                 options=options)
         if self.fileName:
             print(self.fileName)
 
@@ -77,7 +79,6 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
         self.msgbox.exec_()
         aughelper.callall(self.dirName, self.extension, self.image)
 
-
     def onaugmentclicked(self):
         self.augment.clicked.connect(self.onaugment)
 
@@ -86,6 +87,7 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
 
     def __del__(self):
         sys.stdout = sys.__stdout__
+
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
