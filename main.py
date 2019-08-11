@@ -17,6 +17,11 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
 
         super(MainApp, self).__init__(parent)
         self.setupUi(self)
+        self.msgbox = QtWidgets.QMessageBox()
+        self.msgbox.setText("The application may remain unresponsive. Do not close the main window.")
+        self.msgbox.setStandardButtons(QtWidgets.QMessageBox.Ok)
+        self.msgbox.setIcon(QtWidgets.QMessageBox.Warning)
+        self.msgbox.setWindowTitle("Important!!")
 
         self.extension = '.jpg'
 
@@ -69,6 +74,7 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
 
     def onaugment(self):
         self.image = cv2.imread(self.fileName)
+        self.msgbox.exec_()
         aughelper.callall(self.dirName, self.extension, self.image)
 
 
