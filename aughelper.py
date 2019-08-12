@@ -2,7 +2,6 @@ import cv2
 import numpy as np
 import itertools
 import random
-from skimage import io
 from skimage.util import img_as_float
 from skimage.segmentation import slic
 from skimage.exposure import rescale_intensity

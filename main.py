@@ -5,13 +5,11 @@ import os
 import sys
 import aughelper
 
-
 class Stream(QtCore.QObject):
     newText = QtCore.pyqtSignal(str)
 
     def write(self, text):
         self.newText.emit(str(text))
-
 
 class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
 
@@ -75,6 +73,8 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
         cv2.destroyAllWindows()
 
     def onaugment(self):
+
+        print("Augmenting...")
         self.image = cv2.imread(self.fileName)
         self.msgbox.exec_()
         aughelper.callall(self.dirName, self.extension, self.image)
