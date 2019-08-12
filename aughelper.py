@@ -585,7 +585,7 @@ def callall(dirName, extension, image):
     resizeimage(dirName, extension, image, 180, 200)
     resizeimage(dirName, extension, image, 380, 330)
 
-    # print("Done resizing")
+    print("Done resizing")
     # Customize padding here
     padimage(dirName, extension, image, 100, 0, 0, 0)
     padimage(dirName, extension, image, 0, 100, 0, 0)
@@ -605,7 +605,7 @@ def callall(dirName, extension, image):
     padimage(dirName, extension, image, 0, 0, 200, 200)
     padimage(dirName, extension, image, 200, 0, 200, 0)
     padimage(dirName, extension, image, 0, 200, 0, 200)
-    # print("Done padding")
+    print("Done padding")
     # Customize cropping here
     cropimage(dirName, extension, image, 100, 400, 0, 350)
     cropimage(dirName, extension, image, 100, 400, 100, 450)
@@ -613,38 +613,50 @@ def callall(dirName, extension, image):
     cropimage(dirName, extension, image, 0, 300, 100, 450)
     cropimage(dirName, extension, image, 100, 300, 100, 350)
 
-    # print("Done cropping")
+    print("Done cropping")
     flipimage(dirName, extension, image, 0)  # horizontal
     flipimage(dirName, extension, image, 1)  # vertical
     flipimage(dirName, extension, image, -1)  # both
 
-    # print("Done flipping")
+    print("Done flipping")
     for i in range(0, 255, 25):
         print(i)
         invertimage(dirName, extension, image, i)
         saturateimage(dirName, extension, image, i)
         hueimage(dirName, extension, image, i)
+    print("Done invering, saturating and huing")
 
-        for i in seq(1, 6, 0.1):
-            gammacorrection(dirName, extension, image, i)
+    for i in seq(1, 6, 0.1):
+        gammacorrection(dirName, extension, image, i)
 
-        for i in range(0, 255, 50):
-            for j in seq(1, 5, 0.8):
-                add_light_color(dirName, extension, image, i, j)
+    print("Done Gamma Correcting")
+    for i in range(0, 255, 50):
+        for j in seq(1, 5, 0.8):
+            add_light_color(dirName, extension, image, i, j)
 
-        for x in seq(0.1, 1, 0.2):
-            for y in seq(0.1, 1, 0.2):
-                for z in seq(0.1, 1, 0.2):
-                    multiplywith(dirName, extension, image, x, y, z)
+    print("Done Adding light and color")
 
-        for t in seq(0, 5, 0.5):
-            gaussianblur(dirName, extension, image, t)
+    for x in seq(0.1, 1, 0.2):
+        for y in seq(0.1, 1, 0.2):
+            for z in seq(0.1, 1, 0.2):
+                multiplywith(dirName, extension, image, x, y, z)
 
-        for t in range(1, 12, 1):
-            avgblur(dirName, extension, image, t)
+    print("Done with multiplication")
 
-        for c in range(1, 13, 2):
-            medblur(dirName, extension, image, c)
+    for t in seq(0, 5, 0.5):
+        gaussianblur(dirName, extension, image, t)
+
+    print("Done with Gaussian Blur")
+
+    for t in range(1, 12, 1):
+        avgblur(dirName, extension, image, t)
+
+    print("Done with Average Blur")
+
+    for c in range(1, 13, 2):
+        medblur(dirName, extension, image, c)
+
+        print("Done with Median Blur")
 
         morphops(dirName, extension, image, 2)
         morphop2(dirName, extension, image, 100)
@@ -653,6 +665,8 @@ def callall(dirName, extension, image):
         morphops(dirName, extension, image, 4)
         morphop2(dirName, extension, image, 200)
 
+        print("Done with Morphological operation set 1 & 2")
+
         bilblur(dirName, extension, image, 9, 75, 75)
         bilblur(dirName, extension, image, 12, 100, 100)
         bilblur(dirName, extension, image, 25, 100, 100)
@@ -660,42 +674,63 @@ def callall(dirName, extension, image):
         bilblur(dirName, extension, image, 50, 100, 100)
         bilblur(dirName, extension, image, 50, 75, 75)
 
+        print("Done with Bilateral Blur")
+
         sharpenimage(dirName, extension, image)
+        print("Done with sharpening")
         embossimage(dirName, extension, image)
+        print("Done with Embossing")
         edges(dirName, extension, image)
+        print("Done with Edge operations")
         colorconv(dirName, extension, image)
+        print("Done with Color Convertion")
         adgaunoise(dirName, extension, image)
+        print("Done with Adaptive Gaussian Noise")
         sandpnoise(dirName, extension, image, 0.05)
         sandpnoise(dirName, extension, image, 0.08)
         sandpnoise(dirName, extension, image, 0.02)
         sandpnoise(dirName, extension, image, 0.04)
+        print("Done with Salt and Pepper Noise")
         poissonnoise(dirName, extension, image)
+        print("Done with Poisson Noise")
         specklenoise(dirName, extension, image)
-        for i in range(0, 125, 25):
-            contrastimage(dirName, extension, image, i)
+        print("Done with Speckle Noise")
 
-        for i in seq(1, 4, 1):
-            for j in seq(1, 4, 1):
-                scaleimage(dirName, extension, image, i, j)
+    for i in range(0, 125, 25):
+        contrastimage(dirName, extension, image, i)
 
-        for s in range(0, 360, 90):
+    print("Done with Contrast Changes")
+
+    for i in seq(1, 4, 1):
+        for j in seq(1, 4, 1):
+            scaleimage(dirName, extension, image, i, j)
+
+    print("Done with Scaling Operations")
+
+    for s in range(0, 360, 90):
             rotateimage(dirName, extension, image, s)
 
-        translateimage(dirName, extension, image, 150, 150)
-        translateimage(dirName, extension, image, -150, 150)
-        translateimage(dirName, extension, image, 150, -150)
-        translateimage(dirName, extension, image, -150, -150)
+    print("Done with Image Rotation Operations")
+    translateimage(dirName, extension, image, 150, 150)
+    translateimage(dirName, extension, image, -150, 150)
+    translateimage(dirName, extension, image, 150, -150)
+    translateimage(dirName, extension, image, -150, -150)
+    print("Done with Translation Operations")
 
-        superpixel(dirName, extension, image, 50)
-        superpixel(dirName, extension, image, 100)
-        superpixel(dirName, extension, image, 150)
-        superpixel(dirName, extension, image, 200)
-        superpixel(dirName, extension, image, 255)
-        superpixel(dirName, extension, image, 75)
-        superpixel(dirName, extension, image, 125)
+    superpixel(dirName, extension, image, 50)
+    superpixel(dirName, extension, image, 100)
+    superpixel(dirName, extension, image, 150)
+    superpixel(dirName, extension, image, 200)
+    superpixel(dirName, extension, image, 255)
+    superpixel(dirName, extension, image, 75)
+    superpixel(dirName, extension, image, 125)
+    print("Done with SuperPixel")
 
-        histeq(dirName, extension, image)
-        skelotonize(dirName, extension, image)
+    histeq(dirName, extension, image)
+    print("Done with Histogram equalization")
+    skelotonize(dirName, extension, image)
+    print("Done with Skelonotizing")
 
-        for x in range(0, 360, 30):
-                affine(dirName, extension, image, x)
+    for x in range(0, 360, 30):
+        affine(dirName, extension, image, x)
+    print("Done with Affine Transformations")
