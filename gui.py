@@ -488,6 +488,9 @@ class Ui_MainWindow(object):
         self.line_3.setFrameShape(QtWidgets.QFrame.HLine)
         self.line_3.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_3.setObjectName("line_3")
+        self.clear = QtWidgets.QPushButton(self.centralwidget)
+        self.clear.setGeometry(QtCore.QRect(310, 490, 89, 25))
+        self.clear.setObjectName("clear")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -571,6 +574,7 @@ class Ui_MainWindow(object):
         self.label_3.setText(_translate("MainWindow", "Show the Image"))
         self.browse.setText(_translate("MainWindow", "Browse"))
         self.showim.setText(_translate("MainWindow", "Show"))
+        self.clear.setText(_translate("MainWindow", "Clear"))
 
 
 if __name__ == "__main__":

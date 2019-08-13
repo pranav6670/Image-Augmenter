@@ -74,6 +74,7 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
         self.onskel()
         self.onaffine()
         self.oncc()
+        self.cleartext()
 
     def onUpdateText(self, text):
         cursor = self.cmdop.textCursor()
@@ -225,7 +226,7 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
 
     def augagn(self):
         aughelper.onlyagn(self.dirName, self.extension, self.image)
-#################3
+###
     def onsp(self):
         self.sp.clicked.connect(self.augsp)
 
@@ -292,31 +293,6 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
     def augaff(self):
         aughelper.onlyaffine(self.dirName, self.extension, self.image)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     def onaugmentclicked(self):
         self.augment.clicked.connect(self.onaugment)
 
@@ -326,6 +302,11 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
     def __del__(self):
         sys.stdout = sys.__stdout__
 
+    def cleartext(self):
+        self.clear.clicked.connect(self.clearcon)
+
+    def clearcon(self):
+        self.cmdop.clear()
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
