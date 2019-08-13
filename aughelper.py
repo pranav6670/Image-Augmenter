@@ -142,6 +142,7 @@ def morphops(dirName, extension, image, shift):
     cv2.imwrite(dirName + "/Closed-" + " (" + str(shift) + str(shift) + ")" + extension, closedimage)
     morphgradim = cv2.morphologyEx(image, cv2.MORPH_GRADIENT, kernal)
     cv2.imwrite(dirName + "/Morphological gradient-" + " (" + str(shift) + str(shift) + ")" + extension, morphgradim)
+    print("Done with first set of morphological operations")
 
 
 def skelotonize(dirName, extention, image):
@@ -171,6 +172,7 @@ def morphop2(dirName, extension, image, shift):
     cv2.imwrite(dirName + "/Top Hat-" + " (" + str(shift) + str(shift) + ")" + extension, tophat)
     blackhat = cv2.morphologyEx(image, cv2.MORPH_BLACKHAT, kernal)
     cv2.imwrite(dirName + "/Black Hat-" + " (" + str(shift) + str(shift) + ")" + extension, blackhat)
+    print("Done with second set of Morphological ops")
 
 
 def sharpenimage(dirName, extension, image):
@@ -565,9 +567,7 @@ def affine(dirName, extention, image, angle):
     cv2.imwrite(dirName+"/Warp&Rotate"+str(angle)+str(scale)+extention, warp_rotate_dst)
     print("Done with affine transforms")
 
-
-def callall(dirName, extension, image):
-    # print("in call all")
+def onlyresize(dirName, extension, image):
     resizeimage(dirName, extension, image, 400, 400)
     resizeimage(dirName, extension, image, 350, 300)
     resizeimage(dirName, extension, image, 100, 150)
@@ -585,8 +585,7 @@ def callall(dirName, extension, image):
     resizeimage(dirName, extension, image, 180, 200)
     resizeimage(dirName, extension, image, 380, 330)
 
-    print("Done resizing")
-    # Customize padding here
+def onlypad(dirName, extension, image):
     padimage(dirName, extension, image, 100, 0, 0, 0)
     padimage(dirName, extension, image, 0, 100, 0, 0)
     padimage(dirName, extension, image, 0, 0, 100, 0)
@@ -605,118 +604,135 @@ def callall(dirName, extension, image):
     padimage(dirName, extension, image, 0, 0, 200, 200)
     padimage(dirName, extension, image, 200, 0, 200, 0)
     padimage(dirName, extension, image, 0, 200, 0, 200)
-    print("Done padding")
-    # Customize cropping here
+
+def onlycrop(dirName, extension, image):
     cropimage(dirName, extension, image, 100, 400, 0, 350)
     cropimage(dirName, extension, image, 100, 400, 100, 450)
     cropimage(dirName, extension, image, 0, 300, 0, 350)
     cropimage(dirName, extension, image, 0, 300, 100, 450)
     cropimage(dirName, extension, image, 100, 300, 100, 350)
 
-    print("Done cropping")
+
+def onlyflip(dirName, extension, image):
     flipimage(dirName, extension, image, 0)  # horizontal
     flipimage(dirName, extension, image, 1)  # vertical
     flipimage(dirName, extension, image, -1)  # both
 
-    print("Done flipping")
-    for i in range(0, 255, 25):
-        print(i)
+
+def onlyhsi(dirName, extension, image):
+    for i in range(0, 255, 10):
         invertimage(dirName, extension, image, i)
         saturateimage(dirName, extension, image, i)
         hueimage(dirName, extension, image, i)
-    print("Done invering, saturating and huing")
 
-    for i in seq(1, 6, 0.1):
+def onlygc(dirName, extension, image):
+    for i in seq(1, 8, 0.1):
         gammacorrection(dirName, extension, image, i)
 
-    print("Done Gamma Correcting")
+def onlygcc(dirName, extension, image):
     for i in range(0, 255, 50):
         for j in seq(1, 5, 0.8):
             add_light_color(dirName, extension, image, i, j)
 
-    print("Done Adding light and color")
-
+def onlymul(dirName, extension, image):
     for x in seq(0.1, 1, 0.2):
         for y in seq(0.1, 1, 0.2):
             for z in seq(0.1, 1, 0.2):
                 multiplywith(dirName, extension, image, x, y, z)
 
-    print("Done with multiplication")
-
+def onlygb(dirName, extension, image):
     for t in seq(0, 5, 0.5):
         gaussianblur(dirName, extension, image, t)
 
-    print("Done with Gaussian Blur")
-
+def onlyab(dirName, extension, image):
     for t in range(1, 12, 1):
         avgblur(dirName, extension, image, t)
 
-    print("Done with Average Blur")
-
+def onlymb(dirName, extension, image):
     for c in range(1, 13, 2):
         medblur(dirName, extension, image, c)
 
-        print("Done with Median Blur")
+def onlybb(dirName, extension, image):
+    bilblur(dirName, extension, image, 9, 75, 75)
+    bilblur(dirName, extension, image, 12, 100, 100)
+    bilblur(dirName, extension, image, 25, 100, 100)
+    bilblur(dirName, extension, image, 40, 75, 75)
+    bilblur(dirName, extension, image, 50, 100, 100)
+    bilblur(dirName, extension, image, 50, 75, 75)
 
-        morphops(dirName, extension, image, 2)
-        morphop2(dirName, extension, image, 100)
-        morphops(dirName, extension, image, 3)
-        morphop2(dirName, extension, image, 150)
-        morphops(dirName, extension, image, 4)
-        morphop2(dirName, extension, image, 200)
+def onlycc(dirName, extension, image):
+    colorconv(dirName, extension, image)
 
-        print("Done with Morphological operation set 1 & 2")
+def onlymo1(dirName, extension, image):
+    morphops(dirName, extension, image, 2)
+    morphops(dirName, extension, image, 3)
+    morphops(dirName, extension, image, 4)
+    morphops(dirName, extension, image, 5)
+    morphops(dirName, extension, image, 6)
+    morphops(dirName, extension, image, 7)
 
-        bilblur(dirName, extension, image, 9, 75, 75)
-        bilblur(dirName, extension, image, 12, 100, 100)
-        bilblur(dirName, extension, image, 25, 100, 100)
-        bilblur(dirName, extension, image, 40, 75, 75)
-        bilblur(dirName, extension, image, 50, 100, 100)
-        bilblur(dirName, extension, image, 50, 75, 75)
+def onlymo2(dirName, extension, image):
+    morphop2(dirName, extension, image, 100)
+    morphop2(dirName, extension, image, 150)
+    morphop2(dirName, extension, image, 200)
+    morphop2(dirName, extension, image, 250)
+    morphop2(dirName, extension, image, 300)
+    morphop2(dirName, extension, image, 350)
 
-        print("Done with Bilateral Blur")
+def onlysharp(dirName, extension, image):
+     sharpenimage(dirName, extension, image)
 
-        sharpenimage(dirName, extension, image)
-        print("Done with sharpening")
-        embossimage(dirName, extension, image)
-        print("Done with Embossing")
-        edges(dirName, extension, image)
-        print("Done with Edge operations")
-        colorconv(dirName, extension, image)
-        print("Done with Color Convertion")
-        adgaunoise(dirName, extension, image)
-        print("Done with Adaptive Gaussian Noise")
-        sandpnoise(dirName, extension, image, 0.05)
-        sandpnoise(dirName, extension, image, 0.08)
-        sandpnoise(dirName, extension, image, 0.02)
-        sandpnoise(dirName, extension, image, 0.04)
-        print("Done with Salt and Pepper Noise")
-        poissonnoise(dirName, extension, image)
-        print("Done with Poisson Noise")
-        specklenoise(dirName, extension, image)
-        print("Done with Speckle Noise")
+def onlyemboss(dirName, extension, image):
+    embossimage(dirName, extension, image)
 
+def onlyedges(dirName, extension, image):
+    edges(dirName, extension, image)
+
+def onlyagn(dirName, extension, image):
+     adgaunoise(dirName, extension, image)
+
+def onlysp(dirName, extension, image):
+    for i in seq(0, 0.1, 0.01):
+        sandpnoise(dirName, extension, image, i)
+
+def onlypoi(dirName, extension, image):
+    poissonnoise(dirName, extension, image)
+
+def onlyspec(dirName, extension, image):
+    specklenoise(dirName, extension, image)
+
+def onlycontrast(dirName, extension, image):
     for i in range(0, 125, 25):
         contrastimage(dirName, extension, image, i)
 
-    print("Done with Contrast Changes")
-
+def onlyscale(dirName, extension, image):
     for i in seq(1, 4, 1):
         for j in seq(1, 4, 1):
             scaleimage(dirName, extension, image, i, j)
 
-    print("Done with Scaling Operations")
+def onlyrotate(dirName, extension, image):
+    for s in range(0, 360, 30):
+        rotateimage(dirName, extension, image, s)
 
-    for s in range(0, 360, 90):
-            rotateimage(dirName, extension, image, s)
-
-    print("Done with Image Rotation Operations")
+def onlytranslate(dirName, extension, image):
     translateimage(dirName, extension, image, 150, 150)
     translateimage(dirName, extension, image, -150, 150)
     translateimage(dirName, extension, image, 150, -150)
     translateimage(dirName, extension, image, -150, -150)
-    print("Done with Translation Operations")
+    translateimage(dirName, extension, image, 100, 100)
+    translateimage(dirName, extension, image, -100, 100)
+    translateimage(dirName, extension, image, 100, -100)
+    translateimage(dirName, extension, image, -100, -100)
+    translateimage(dirName, extension, image, 50, 50)
+    translateimage(dirName, extension, image, -50, 50)
+    translateimage(dirName, extension, image, 50, -50)
+    translateimage(dirName, extension, image, -50, -50)
+    translateimage(dirName, extension, image, 30, 30)
+    translateimage(dirName, extension, image, -30, 30)
+    translateimage(dirName, extension, image, 30, -30)
+    translateimage(dirName, extension, image, -30, -30)
 
+def onlysuper(dirName, extension, image):
     superpixel(dirName, extension, image, 50)
     superpixel(dirName, extension, image, 100)
     superpixel(dirName, extension, image, 150)
@@ -724,13 +740,52 @@ def callall(dirName, extension, image):
     superpixel(dirName, extension, image, 255)
     superpixel(dirName, extension, image, 75)
     superpixel(dirName, extension, image, 125)
-    print("Done with SuperPixel")
 
-    histeq(dirName, extension, image)
-    print("Done with Histogram equalization")
+def onlyhisteq(dirName, extension, image):
+        histeq(dirName, extension, image)
+
+def onlyskelonotize(dirName, extension, image):
     skelotonize(dirName, extension, image)
-    print("Done with Skelonotizing")
-
+    
+def onlyaffine(dirName, extension, image):
     for x in range(0, 360, 30):
         affine(dirName, extension, image, x)
-    print("Done with Affine Transformations")
+
+def callall(dirName, extension, image):
+    onlypad(dirName, extension, image)
+    onlyresize(dirName, extension, image)
+    onlycrop(dirName, extension, image)
+    onlyflip(dirName, extension, image)
+    onlyhsi(dirName, extension, image)
+    onlygc(dirName, extension, image)
+    onlygcc(dirName, extension, image)
+    onlymul(dirName, extension, image)
+    onlygb(dirName, extension, image)
+    onlyab(dirName, extension, image)
+    onlymb(dirName, extension, image)
+    onlybb(dirName, extension, image)
+    onlycc(dirName, extension, image)
+    onlymo1(dirName, extension, image)
+    onlymo2(dirName, extension, image)
+    onlysharp(dirName, extension, image)
+    onlyemboss(dirName, extension, image)
+    onlyedges(dirName, extension, image)
+    onlyagn(dirName, extension, image)
+    onlysp(dirName, extension, image)
+    onlypoi(dirName, extension, image)
+    onlyspec(dirName, extension, image)
+    onlycontrast(dirName, extension, image)
+    onlyscale(dirName,extension, image)
+    onlyrotate(dirName, extension, image)
+    onlytranslate(dirName, extension, image)
+    onlysuper(dirName, extension, image)
+    onlyhisteq(dirName, extension, image)
+    onlyskelonotize(dirName, extension, image)
+    onlyaffine(dirName, extension, image)
+
+
+
+
+
+
+    
