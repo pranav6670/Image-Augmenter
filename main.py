@@ -97,6 +97,7 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
                                                                  options=options)
         if self.fileName:
             print(self.fileName)
+        print("\nImage Loaded")
 
     def showimage(self):
         print("Displaying...")
