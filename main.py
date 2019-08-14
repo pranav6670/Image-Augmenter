@@ -75,11 +75,9 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
         self.onaffine()
         self.oncc()
         self.cleartext()
-        # print(self.check)
-        # if self.check == False:
-        #     print("in false")
-        #     self.showim.setEnabled(False)
-        # if self.browse.
+        if self.check == False:
+            self.showim.setEnabled(False)
+
 
     def onUpdateText(self, text):
         cursor = self.cmdop.textCursor()
@@ -90,6 +88,11 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
 
     def onbrowse(self):
         self.browse.clicked.connect(self.openFileNameDialog)
+        self.browse.clicked.connect(self.browsecheck)
+
+    def browsecheck(self):
+        if self.check == True:
+            self.showim.setEnabled(True)
 
     def onshow(self):
         self.showim.clicked.connect(self.showimage)
@@ -105,7 +108,6 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
 
         print("\nImage Loaded")
         self.check = True
-        print(self.check)
 
     def showimage(self):
         print("Displaying...")
