@@ -78,7 +78,6 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
         if self.check == False:
             self.showim.setEnabled(False)
 
-
     def onUpdateText(self, text):
         cursor = self.cmdop.textCursor()
         cursor.movePosition(QtGui.QTextCursor.End)
@@ -105,7 +104,6 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
                                                                  options=options)
         if self.fileName:
             print(self.fileName)
-
         print("\nImage Loaded")
         self.check = True
 
