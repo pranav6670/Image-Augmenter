@@ -17,6 +17,9 @@
    <iconset>
     <normaloff>icon.ico</normaloff>icon.ico</iconset>
   </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
   <property name="styleSheet">
    <string notr="true"/>
   </property>
