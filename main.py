@@ -26,7 +26,7 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
         self.augment.setToolTip("Click me to augment the image using all operators")
         # self.augment.setToolTipDuration(15)
         self.tabWidget.setCurrentIndex(0)
-
+        self.check = False
         self.extension = '.jpg'
 
         self.dirName = 'Augmented'
@@ -75,6 +75,11 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
         self.onaffine()
         self.oncc()
         self.cleartext()
+        # print(self.check)
+        # if self.check == False:
+        #     print("in false")
+        #     self.showim.setEnabled(False)
+        # if self.browse.
 
     def onUpdateText(self, text):
         cursor = self.cmdop.textCursor()
@@ -97,7 +102,10 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
                                                                  options=options)
         if self.fileName:
             print(self.fileName)
+
         print("\nImage Loaded")
+        self.check = True
+        print(self.check)
 
     def showimage(self):
         print("Displaying...")
@@ -108,191 +116,100 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
         cv2.destroyAllWindows()
 
     def onaugment(self):
-
         print("Augmenting...")
         self.image = cv2.imread(self.fileName)
         self.msgbox.exec_()
         aughelper.callall(self.dirName, self.extension, self.image)
 
     def onresize(self):
-        self.resz.clicked.connect(self.augrsz)
-
-    def augrsz(self):
-        aughelper.onlyresize(self.dirName, self.extension, self.image)
+        self.resz.clicked.connect(lambda :aughelper.onlyresize(self.dirName, self.extension, self.image))
 
     def onpad(self):
-        self.pad.clicked.connect(self.augpad)
-
-    def augpad(self):
-        aughelper.onlypad(self.dirName, self.extension, self.image)
+        self.pad.clicked.connect(lambda :aughelper.onlypad(self.dirName, self.extension, self.image))
 
     def oncrop(self):
-        self.crop.clicked.connect(self.augcrop)
-
-    def augcrop(self):
-        aughelper.onlycrop(self.dirName, self.extension, self.image)
+        self.crop.clicked.connect(lambda :aughelper.onlycrop(self.dirName, self.extension, self.image))
 
     def onflip(self):
-        self.flip.clicked.connect(self.augflip)
-
-    def augflip(self):
-        aughelper.onlyflip(self.dirName, self.extension, self.image)
+        self.flip.clicked.connect(lambda :aughelper.onlyflip(self.dirName, self.extension, self.image))
 
     def onhsi(self):
-        self.hsi.clicked.connect(self.aughsi)
-
-    def aughsi(self):
-        aughelper.onlyhsi(self.dirName, self.extension, self.image)
+        self.hsi.clicked.connect(lambda :aughelper.onlyhsi(self.dirName, self.extension, self.image))
 
     def ongc(self):
-        self.gc.clicked.connect(self.auggc)
-
-    def auggc(self):
-        aughelper.onlygc(self.dirName, self.extension, self.image)
+        self.gc.clicked.connect(lambda :aughelper.onlygc(self.dirName, self.extension, self.image))
 
     def ongcc(self):
-        self.gcc.clicked.connect(self.auggcc)
-
-    def auggcc(self):
-        aughelper.onlygcc(self.dirName, self.extension, self.image)
+        self.gcc.clicked.connect(lambda :aughelper.onlygcc(self.dirName, self.extension, self.image))
 
     def onmul(self):
-        self.pchmul.clicked.connect(self.augmul)
-
-    def augmul(self):
-        aughelper.onlymul(self.dirName, self.extension, self.image)
+        self.pchmul.clicked.connect(lambda :aughelper.onlymul(self.dirName, self.extension, self.image))
 
     def ongb(self):
-        self.gb.clicked.connect(self.auggb)
-
-    def auggb(self):
-        aughelper.onlygb(self.dirName, self.extension, self.image)
+        self.gb.clicked.connect(lambda :aughelper.onlygb(self.dirName, self.extension, self.image))
 
     def onab(self):
-        self.ab.clicked.connect(self.augab)
-
-    def augab(self):
-        aughelper.onlyab(self.dirName, self.extension, self.image)
+        self.ab.clicked.connect(lambda :aughelper.onlyab(self.dirName, self.extension, self.image))
 
     def onmb(self):
-        self.mb.clicked.connect(self.augmb)
-
-    def augmb(self):
-        aughelper.onlymb(self.dirName, self.extension, self.image)
+        self.mb.clicked.connect(lambda :aughelper.onlymb(self.dirName, self.extension, self.image))
 
     def onbb(self):
-        self.bb.clicked.connect(self.augbb)
-
-    def augbb(self):
-        aughelper.onlybb(self.dirName, self.extension, self.image)
+        self.bb.clicked.connect(lambda :aughelper.onlybb(self.dirName, self.extension, self.image))
 
     def oncc(self):
-        self.cc.clicked.connect(self.augcc)
-
-    def augcc(self):
-        aughelper.onlycc(self.dirName, self.extension, self.image)
+        self.cc.clicked.connect(lambda :aughelper.onlycc(self.dirName, self.extension, self.image))
 
     def onmop1(self):
-        self.mor1.clicked.connect(self.augmo1)
-
-    def augmo1(self):
-        aughelper.onlymo1(self.dirName, self.extension, self.image)
+        self.mor1.clicked.connect(lambda :aughelper.onlymo1(self.dirName, self.extension, self.image))
 
     def onmop2(self):
-        self.mor2.clicked.connect(self.augmo2)
-
-    def augmo2(self):
-        aughelper.onlymo2(self.dirName, self.extension, self.image)
+        self.mor2.clicked.connect(lambda :aughelper.onlymo2(self.dirName, self.extension, self.image))
 
     def onsharp(self):
-        self.sharp.clicked.connect(self.augsharp)
-
-    def augsharp(self):
-        aughelper.onlysharp(self.dirName, self.extension, self.image)
+        self.sharp.clicked.connect(lambda :aughelper.onlysharp(self.dirName, self.extension, self.image))
 
     def onemboss(self):
-        self.emboss.clicked.connect(self.augemboss)
-
-    def augemboss(self):
-        aughelper.onlyemboss(self.dirName, self.extension, self.image)
+        self.emboss.clicked.connect(lambda :aughelper.onlyemboss(self.dirName, self.extension, self.image))
 
     def onedge(self):
-        self.edge.clicked.connect(self.augedge)
-
-    def augedge(self):
-        aughelper.onlyedges(self.dirName, self.extension, self.image)
+        self.edge.clicked.connect(lambda :aughelper.onlyedges(self.dirName, self.extension, self.image))
 
     def onagn(self):
-        self.agn.clicked.connect(self.augagn)
+        self.agn.clicked.connect(lambda :aughelper.onlyagn(self.dirName, self.extension, self.image))
 
-    def augagn(self):
-        aughelper.onlyagn(self.dirName, self.extension, self.image)
-###
     def onsp(self):
-        self.sp.clicked.connect(self.augsp)
-
-    def augsp(self):
-        aughelper.onlysp(self.dirName, self.extension, self.image)
+        self.sp.clicked.connect(lambda :aughelper.onlysp(self.dirName, self.extension, self.image))
 
     def onpoi(self):
-        self.pnoi.clicked.connect(self.augpoi)
-
-    def augpoi(self):
-        aughelper.onlypoi(self.dirName, self.extension, self.image)
+        self.pnoi.clicked.connect(lambda :aughelper.onlypoi(self.dirName, self.extension, self.image))
 
     def onspec(self):
-        self.spnoi.clicked.connect(self.augspec)
-
-    def augspec(self):
-        aughelper.onlyspec(self.dirName, self.extension, self.image)
+        self.spnoi.clicked.connect(lambda :aughelper.onlyspec(self.dirName, self.extension, self.image))
 
     def oncontrast(self):
-        self.contrast.clicked.connect(self.augcon)
-
-    def augcon(self):
-        aughelper.onlycontrast(self.dirName, self.extension, self.image)
+        self.contrast.clicked.connect(lambda :aughelper.onlycontrast(self.dirName, self.extension, self.image))
 
     def onscale(self):
-        self.scale.clicked.connect(self.augscale)
-
-    def augscale(self):
-        aughelper.onlyscale(self.dirName, self.extension, self.image)
+        self.scale.clicked.connect(lambda :aughelper.onlyscale(self.dirName, self.extension, self.image))
 
     def onrotate(self):
-        self.rot.clicked.connect(self.augrot)
-
-    def augrot(self):
-        aughelper.onlyrotate(self.dirName, self.extension, self.image)
+        self.rot.clicked.connect(lambda :aughelper.onlyrotate(self.dirName, self.extension, self.image))
 
     def ontranslate(self):
-        self.trans.clicked.connect(self.augtrans)
-
-    def augtrans(self):
-        aughelper.onlytranslate(self.dirName, self.extension, self.image)
+        self.trans.clicked.connect(lambda :aughelper.onlytranslate(self.dirName, self.extension, self.image))
 
     def onsuper(self):
-        self.superpixel.clicked.connect(self.augsuper)
-
-    def augsuper(self):
-        aughelper.onlysuper(self.dirName, self.extension, self.image)
+        self.superpixel.clicked.connect(lambda :aughelper.onlysuper(self.dirName, self.extension, self.image))
 
     def onhist(self):
-        self.histeq.clicked.connect(self.aughist)
-
-    def aughist(self):
-        aughelper.onlyhisteq(self.dirName, self.extension, self.image)
+        self.histeq.clicked.connect(lambda :aughelper.onlyhisteq(self.dirName, self.extension, self.image))
 
     def onskel(self):
-        self.skel.clicked.connect(self.augskel)
-
-    def augskel(self):
-        aughelper.onlyskelonotize(self.dirName, self.extension, self.image)
+        self.skel.clicked.connect(lambda :aughelper.onlyskelonotize(self.dirName, self.extension, self.image))
 
     def onaffine(self):
-        self.affine.clicked.connect(self.augaff)
-
-    def augaff(self):
-        aughelper.onlyaffine(self.dirName, self.extension, self.image)
+        self.affine.clicked.connect(lambda :aughelper.onlyaffine(self.dirName, self.extension, self.image))
 
     def onaugmentclicked(self):
         self.augment.clicked.connect(self.onaugment)
