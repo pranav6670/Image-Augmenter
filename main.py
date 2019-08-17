@@ -32,6 +32,8 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
         self.dirName = 'Augmented'
         self.setWindowTitle("Image Augmenter")
         self.setWindowIcon(QtGui.QIcon('icon.ico'))
+        self.cmdop.setStyleSheet("QWidget{background-image: url(download.png);}")
+
         if not os.path.exists(self.dirName):
             os.mkdir(self.dirName)
             print("Directory", self.dirName, "Created")

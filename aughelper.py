@@ -568,50 +568,23 @@ def affine(dirName, extention, image, angle):
     print("Done with affine transforms")
 
 def onlyresize(dirName, extension, image):
-    resizeimage(dirName, extension, image, 400, 400)
-    resizeimage(dirName, extension, image, 350, 300)
-    resizeimage(dirName, extension, image, 100, 150)
-    resizeimage(dirName, extension, image, 350, 200)
-    resizeimage(dirName, extension, image, 300, 100)
-    resizeimage(dirName, extension, image, 250, 140)
-    resizeimage(dirName, extension, image, 200, 200)
-    resizeimage(dirName, extension, image, 100, 100)
-    resizeimage(dirName, extension, image, 200, 160)
-    resizeimage(dirName, extension, image, 350, 200)
-    resizeimage(dirName, extension, image, 200, 450)
-    resizeimage(dirName, extension, image, 500, 500)
-    resizeimage(dirName, extension, image, 440, 420)
-    resizeimage(dirName, extension, image, 200, 380)
-    resizeimage(dirName, extension, image, 180, 200)
-    resizeimage(dirName, extension, image, 380, 330)
+    for i in range(100, 500, 50):
+        for j in range(100, 500, 50):
+            resizeimage(dirName, extension, image, i, j)
 
 def onlypad(dirName, extension, image):
-    padimage(dirName, extension, image, 100, 0, 0, 0)
-    padimage(dirName, extension, image, 0, 100, 0, 0)
-    padimage(dirName, extension, image, 0, 0, 100, 0)
-    padimage(dirName, extension, image, 0, 0, 0, 100)
-    padimage(dirName, extension, image, 100, 100, 0, 0)
-    padimage(dirName, extension, image, 0, 100, 100, 0)
-    padimage(dirName, extension, image, 0, 0, 100, 100)
-    padimage(dirName, extension, image, 100, 0, 100, 0)
-    padimage(dirName, extension, image, 0, 100, 0, 100)
-    padimage(dirName, extension, image, 200, 0, 0, 0)
-    padimage(dirName, extension, image, 0, 200, 0, 0)
-    padimage(dirName, extension, image, 0, 0, 200, 0)
-    padimage(dirName, extension, image, 0, 0, 0, 200)
-    padimage(dirName, extension, image, 200, 200, 0, 0)
-    padimage(dirName, extension, image, 0, 200, 200, 0)
-    padimage(dirName, extension, image, 0, 0, 200, 200)
-    padimage(dirName, extension, image, 200, 0, 200, 0)
-    padimage(dirName, extension, image, 0, 200, 0, 200)
+    for i in range(0, 200, 50):
+        for j in range(0, 200, 50):
+            for k in range(0, 200, 50):
+                for l in range(0, 200, 50):
+                    padimage(dirName, extension, image, i, j, k, l)
 
 def onlycrop(dirName, extension, image):
-    cropimage(dirName, extension, image, 100, 400, 0, 350)
-    cropimage(dirName, extension, image, 100, 400, 100, 450)
-    cropimage(dirName, extension, image, 0, 300, 0, 350)
-    cropimage(dirName, extension, image, 0, 300, 100, 450)
-    cropimage(dirName, extension, image, 100, 300, 100, 350)
-
+    for i in range(0, 300, 50):
+        for j in range(0, 300, 50):
+            for k in range(0, 300, 50):
+                for l in range(0, 300, 50):
+                    cropimage(dirName, extension, image, i, j, k, l)
 
 def onlyflip(dirName, extension, image):
     flipimage(dirName, extension, image, 0)  # horizontal
