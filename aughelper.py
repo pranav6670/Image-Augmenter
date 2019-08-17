@@ -580,10 +580,10 @@ def onlypad(dirName, extension, image):
                     padimage(dirName, extension, image, i, j, k, l)
 
 def onlycrop(dirName, extension, image):
-    for i in range(0, 300, 50):
-        for j in range(0, 300, 50):
-            for k in range(0, 300, 50):
-                for l in range(0, 300, 50):
+    for i in range(100, 300, 50):
+        for j in range(100, 300, 50):
+            for k in range(100, 300, 50):
+                for l in range(100, 300, 50):
                     cropimage(dirName, extension, image, i, j, k, l)
 
 def onlyflip(dirName, extension, image):
@@ -637,20 +637,13 @@ def onlycc(dirName, extension, image):
     colorconv(dirName, extension, image)
 
 def onlymo1(dirName, extension, image):
-    morphops(dirName, extension, image, 2)
-    morphops(dirName, extension, image, 3)
-    morphops(dirName, extension, image, 4)
-    morphops(dirName, extension, image, 5)
-    morphops(dirName, extension, image, 6)
-    morphops(dirName, extension, image, 7)
+    for t in range(1, 15, 1):
+        morphops(dirName, extension, image, t)
+
 
 def onlymo2(dirName, extension, image):
-    morphop2(dirName, extension, image, 100)
-    morphop2(dirName, extension, image, 150)
-    morphop2(dirName, extension, image, 200)
-    morphop2(dirName, extension, image, 250)
-    morphop2(dirName, extension, image, 300)
-    morphop2(dirName, extension, image, 350)
+    for u in range(100, 500, 50):
+        morphop2(dirName, extension, image, 100)
 
 def onlysharp(dirName, extension, image):
      sharpenimage(dirName, extension, image)
@@ -684,7 +677,7 @@ def onlyscale(dirName, extension, image):
             scaleimage(dirName, extension, image, i, j)
 
 def onlyrotate(dirName, extension, image):
-    for s in range(0, 360, 30):
+    for s in range(0, 360, 10):
         rotateimage(dirName, extension, image, s)
 
 def onlytranslate(dirName, extension, image):

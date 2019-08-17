@@ -101,7 +101,7 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
     def openFileNameDialog(self):
         options = QtWidgets.QFileDialog.Options()
         options |= QtWidgets.QFileDialog.DontUseNativeDialog
-        self.fileName, _ = QtWidgets.QFileDialog.getOpenFileName(self, "QFileDialog.getOpenFileName()",
+        self.fileName, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Browse Files",
                                                                  "", "All Files (*);;Python Files (*.py)",
                                                                  options=options)
         if self.fileName:
@@ -113,7 +113,7 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
         print("Displaying...")
         self.image = cv2.imread(self.fileName)
         cv2.imshow("Loaded Image", self.image)
-        print("Done Displaying")
+        print("\nDone Displaying")
         cv2.waitKey(0)
         cv2.destroyAllWindows()
 
