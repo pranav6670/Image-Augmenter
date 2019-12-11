@@ -580,10 +580,12 @@ def onlypad(dirName, extension, image):
                     padimage(dirName, extension, image, i, j, k, l)
 
 def onlycrop(dirName, extension, image):
-    for i in range(100, 300, 50):
-        for j in range(100, 300, 50):
-            for k in range(100, 300, 50):
-                for l in range(100, 300, 50):
+    (row, col, ch) = image.shape
+    height, width = np.size(image, 0), np.size(image, 1)
+    for i in range(0, row):
+        for j in range(0, row + width):
+            for k in range(0, col):
+                for l in range(0, col + width):
                     cropimage(dirName, extension, image, i, j, k, l)
 
 def onlyflip(dirName, extension, image):
@@ -593,7 +595,7 @@ def onlyflip(dirName, extension, image):
 
 
 def onlyhsi(dirName, extension, image):
-    for i in range(0, 255, 10):
+    for i in range(0, 255, 50):
         invertimage(dirName, extension, image, i)
         saturateimage(dirName, extension, image, i)
         hueimage(dirName, extension, image, i)
@@ -643,7 +645,7 @@ def onlymo1(dirName, extension, image):
 
 def onlymo2(dirName, extension, image):
     for u in range(100, 500, 50):
-        morphop2(dirName, extension, image, 100)
+        morphop2(dirName, extension, image, u)
 
 def onlysharp(dirName, extension, image):
      sharpenimage(dirName, extension, image)
@@ -677,7 +679,7 @@ def onlyscale(dirName, extension, image):
             scaleimage(dirName, extension, image, i, j)
 
 def onlyrotate(dirName, extension, image):
-    for s in range(0, 360, 10):
+    for s in range(0, 360, 30):
         rotateimage(dirName, extension, image, s)
 
 def onlytranslate(dirName, extension, image):
@@ -702,8 +704,6 @@ def onlysuper(dirName, extension, image):
     superpixel(dirName, extension, image, 50)
     superpixel(dirName, extension, image, 100)
     superpixel(dirName, extension, image, 150)
-    superpixel(dirName, extension, image, 200)
-    superpixel(dirName, extension, image, 255)
     superpixel(dirName, extension, image, 75)
     superpixel(dirName, extension, image, 125)
 
@@ -748,10 +748,3 @@ def callall(dirName, extension, image):
     onlyhisteq(dirName, extension, image)
     onlyskelonotize(dirName, extension, image)
     onlyaffine(dirName, extension, image)
-
-
-
-
-
-
-    

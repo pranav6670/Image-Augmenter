@@ -5,6 +5,7 @@ import os
 import sys
 import aughelper
 
+
 class Stream(QtCore.QObject):
     newText = QtCore.pyqtSignal(str)
 
@@ -32,7 +33,7 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
         self.dirName = 'Augmented'
         self.setWindowTitle("Image Augmenter")
         self.setWindowIcon(QtGui.QIcon('icon.ico'))
-        self.cmdop.setStyleSheet("QWidget{background-image: url(download.png);}")
+        # self.cmdop.setStyleSheet("QWidget{background-image: url(download.png);}")
 
         if not os.path.exists(self.dirName):
             os.mkdir(self.dirName)
@@ -230,6 +231,67 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
+
+    stylesheet = """
+    
+        QMainWindow{
+            background-color: #eeeeee; 
+        }
+        
+        QTabWidget{
+            background-color: #cfd8dc; 
+        }
+    
+        QFrame#cmdop{
+            background-color: #cfd8dc;
+            border-style: outset;
+            border-width: 2px;
+            border-color: rgb(0, 0, 0);
+        }
+    
+        QPushButton{
+            background-color: #b9f6ca; 
+        }
+        QPushButton:hover {
+            background-color: #69f0ae;
+        }
+        QPushButton:pressed {
+           background-color: #00e676;
+        }    
+    
+        QPushButton#augment{
+            background-color: #ffff8d; 
+        }
+        QPushButton#augment:hover {
+            background-color: #ffff00; 
+        }
+        QPushButton#augment:pressed {
+            background-color: #ffea00;
+        }    
+    
+        QPushButton#browse{
+            background-color: rgb(187, 255, 176); 
+        }
+        QPushButton#browse:hover {
+            background-color: rgb(151, 255, 128);
+        }
+        QPushButton#browse:pressed {
+            background-color: rgb(85, 255, 0);
+        }    
+    
+        QPushButton#quit{
+            background-color: #ff9e80;
+        }
+        QPushButton#quit:hover {
+            background-color: #ff6e40;
+        }
+        QPushButton#quit:pressed {
+            background-color: #ff3d00;
+        }    
+    
+    """
+
+    app.setStyleSheet(stylesheet)
     w = MainApp()
     w.show()
     sys.exit(app.exec_())

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>752</width>
-    <height>530</height>
+    <width>762</width>
+    <height>603</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,23 +20,20 @@
   <property name="autoFillBackground">
    <bool>false</bool>
   </property>
-  <property name="styleSheet">
-   <string notr="true">.QWidget{background-image: url(download.png);}</string>
-  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>9</y>
-      <width>376</width>
-      <height>57</height>
+      <x>60</x>
+      <y>10</y>
+      <width>651</width>
+      <height>91</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Trebuchet MS</family>
-      <pointsize>34</pointsize>
+      <pointsize>55</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
@@ -54,10 +51,10 @@
    <widget class="QPushButton" name="augment">
     <property name="geometry">
      <rect>
-      <x>424</x>
-      <y>464</y>
-      <width>191</width>
-      <height>61</height>
+      <x>420</x>
+      <y>540</y>
+      <width>181</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="toolTip">
@@ -67,16 +64,16 @@
      <string notr="true">color: rgb(0, 0, 0);</string>
     </property>
     <property name="text">
-     <string>Augment All</string>
+     <string>Augment!</string>
     </property>
    </widget>
    <widget class="QPushButton" name="quit">
     <property name="geometry">
      <rect>
-      <x>624</x>
-      <y>464</y>
+      <x>620</x>
+      <y>540</y>
       <width>121</width>
-      <height>61</height>
+      <height>51</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -89,8 +86,8 @@
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>190</y>
+      <x>180</x>
+      <y>270</y>
       <width>58</width>
       <height>25</height>
      </rect>
@@ -105,7 +102,7 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(164, 0, 0);</string>
+     <string notr="true">color: rgb(0, 0, 0);</string>
     </property>
     <property name="text">
      <string>Status</string>
@@ -114,11 +111,14 @@
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>424</x>
-      <y>70</y>
+      <x>420</x>
+      <y>150</y>
       <width>321</width>
-      <height>391</height>
+      <height>381</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
     </property>
     <property name="currentIndex">
      <number>3</number>
@@ -132,7 +132,7 @@
        <rect>
         <x>10</x>
         <y>40</y>
-        <width>41</width>
+        <width>71</width>
         <height>17</height>
        </rect>
       </property>
@@ -153,7 +153,7 @@
        <rect>
         <x>10</x>
         <y>120</y>
-        <width>31</width>
+        <width>121</width>
         <height>17</height>
        </rect>
       </property>
@@ -174,7 +174,7 @@
        <rect>
         <x>10</x>
         <y>80</y>
-        <width>31</width>
+        <width>121</width>
         <height>17</height>
        </rect>
       </property>
@@ -195,7 +195,7 @@
        <rect>
         <x>10</x>
         <y>160</y>
-        <width>31</width>
+        <width>111</width>
         <height>17</height>
        </rect>
       </property>
@@ -216,7 +216,7 @@
        <rect>
         <x>10</x>
         <y>200</y>
-        <width>151</width>
+        <width>191</width>
         <height>17</height>
        </rect>
       </property>
@@ -237,7 +237,7 @@
        <rect>
         <x>10</x>
         <y>240</y>
-        <width>131</width>
+        <width>211</width>
         <height>17</height>
        </rect>
       </property>
@@ -258,7 +258,7 @@
        <rect>
         <x>10</x>
         <y>280</y>
-        <width>211</width>
+        <width>231</width>
         <height>17</height>
        </rect>
       </property>
@@ -279,7 +279,7 @@
        <rect>
         <x>10</x>
         <y>320</y>
-        <width>191</width>
+        <width>221</width>
         <height>17</height>
        </rect>
       </property>
@@ -422,7 +422,7 @@
        <rect>
         <x>10</x>
         <y>160</y>
-        <width>91</width>
+        <width>171</width>
         <height>17</height>
        </rect>
       </property>
@@ -456,7 +456,7 @@
        <rect>
         <x>10</x>
         <y>200</y>
-        <width>151</width>
+        <width>171</width>
         <height>17</height>
        </rect>
       </property>
@@ -477,7 +477,7 @@
        <rect>
         <x>10</x>
         <y>240</y>
-        <width>191</width>
+        <width>221</width>
         <height>17</height>
        </rect>
       </property>
@@ -527,7 +527,7 @@
        <rect>
         <x>10</x>
         <y>40</y>
-        <width>101</width>
+        <width>131</width>
         <height>17</height>
        </rect>
       </property>
@@ -595,7 +595,7 @@
        <rect>
         <x>10</x>
         <y>280</y>
-        <width>211</width>
+        <width>231</width>
         <height>17</height>
        </rect>
       </property>
@@ -616,7 +616,7 @@
        <rect>
         <x>10</x>
         <y>80</y>
-        <width>101</width>
+        <width>141</width>
         <height>17</height>
        </rect>
       </property>
@@ -663,7 +663,7 @@
        <rect>
         <x>10</x>
         <y>120</y>
-        <width>101</width>
+        <width>151</width>
         <height>17</height>
        </rect>
       </property>
@@ -689,7 +689,7 @@
        <rect>
         <x>10</x>
         <y>40</y>
-        <width>101</width>
+        <width>121</width>
         <height>17</height>
        </rect>
       </property>
@@ -744,7 +744,7 @@
        <rect>
         <x>10</x>
         <y>80</y>
-        <width>141</width>
+        <width>161</width>
         <height>17</height>
        </rect>
       </property>
@@ -778,7 +778,7 @@
        <rect>
         <x>10</x>
         <y>120</y>
-        <width>161</width>
+        <width>181</width>
         <height>17</height>
        </rect>
       </property>
@@ -799,7 +799,7 @@
        <rect>
         <x>10</x>
         <y>200</y>
-        <width>151</width>
+        <width>181</width>
         <height>17</height>
        </rect>
       </property>
@@ -833,7 +833,7 @@
        <rect>
         <x>10</x>
         <y>160</y>
-        <width>91</width>
+        <width>191</width>
         <height>17</height>
        </rect>
       </property>
@@ -966,7 +966,7 @@
        <rect>
         <x>10</x>
         <y>40</y>
-        <width>101</width>
+        <width>141</width>
         <height>17</height>
        </rect>
       </property>
@@ -1021,7 +1021,7 @@
        <rect>
         <x>10</x>
         <y>80</y>
-        <width>101</width>
+        <width>131</width>
         <height>17</height>
        </rect>
       </property>
@@ -1055,7 +1055,7 @@
        <rect>
         <x>10</x>
         <y>120</y>
-        <width>101</width>
+        <width>141</width>
         <height>17</height>
        </rect>
       </property>
@@ -1076,7 +1076,7 @@
        <rect>
         <x>10</x>
         <y>200</y>
-        <width>151</width>
+        <width>171</width>
         <height>17</height>
        </rect>
       </property>
@@ -1110,7 +1110,7 @@
        <rect>
         <x>10</x>
         <y>160</y>
-        <width>171</width>
+        <width>201</width>
         <height>17</height>
        </rect>
       </property>
@@ -1170,9 +1170,9 @@
    <widget class="QLabel" name="label_7">
     <property name="geometry">
      <rect>
-      <x>424</x>
-      <y>30</y>
-      <width>251</width>
+      <x>460</x>
+      <y>120</y>
+      <width>241</width>
       <height>25</height>
      </rect>
     </property>
@@ -1186,7 +1186,7 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(41, 104, 0);</string>
+     <string notr="true">color: rgb(0, 0, 0);</string>
     </property>
     <property name="text">
      <string>Selective Augmentation</string>
@@ -1195,8 +1195,8 @@
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>70</y>
+      <x>70</x>
+      <y>130</y>
       <width>256</width>
       <height>31</height>
      </rect>
@@ -1208,7 +1208,7 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(32, 74, 135);</string>
+     <string notr="true">color: rgb(0, 0, 0);</string>
     </property>
     <property name="text">
      <string>Image Loading and Preview</string>
@@ -1217,9 +1217,9 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>116</y>
-      <width>124</width>
+      <x>30</x>
+      <y>170</y>
+      <width>181</width>
       <height>23</height>
      </rect>
     </property>
@@ -1239,9 +1239,9 @@
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>160</y>
-      <width>135</width>
+      <x>30</x>
+      <y>230</y>
+      <width>181</width>
       <height>23</height>
      </rect>
     </property>
@@ -1262,18 +1262,18 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>224</y>
+      <y>300</y>
       <width>401</width>
-      <height>301</height>
+      <height>291</height>
      </rect>
     </property>
    </widget>
    <widget class="QPushButton" name="browse">
     <property name="geometry">
      <rect>
-      <x>210</x>
-      <y>114</y>
-      <width>161</width>
+      <x>250</x>
+      <y>170</y>
+      <width>111</width>
       <height>31</height>
      </rect>
     </property>
@@ -1287,9 +1287,9 @@
    <widget class="QPushButton" name="showim">
     <property name="geometry">
      <rect>
-      <x>210</x>
-      <y>158</y>
-      <width>161</width>
+      <x>250</x>
+      <y>230</y>
+      <width>111</width>
       <height>31</height>
      </rect>
     </property>
@@ -1303,36 +1303,10 @@
    <widget class="Line" name="line">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>92</y>
-      <width>241</width>
+      <x>72</x>
+      <y>96</y>
+      <width>621</width>
       <height>16</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
-   <widget class="Line" name="line_2">
-    <property name="geometry">
-     <rect>
-      <x>424</x>
-      <y>50</y>
-      <width>221</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
-   <widget class="Line" name="line_3">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>215</y>
-      <width>60</width>
-      <height>3</height>
      </rect>
     </property>
     <property name="orientation">
@@ -1342,8 +1316,8 @@
    <widget class="QPushButton" name="clear">
     <property name="geometry">
      <rect>
-      <x>295</x>
-      <y>490</y>
+      <x>303</x>
+      <y>558</y>
       <width>89</width>
       <height>25</height>
      </rect>
