@@ -4,9 +4,6 @@ import gui
 import os
 import sys
 import aughelper
-import qtmodern.styles
-import qtmodern.windows
-
 
 class Stream(QtCore.QObject):
     newText = QtCore.pyqtSignal(str)
@@ -233,8 +230,33 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
+    stylesheet = """
+    QPushButton{
+	        color: rgb(0, 0, 0);
+            background-color: #84ffff;
+        }
+        QPushButton:hover{
+            background-color: #18ffff;
+        }
+        QPushButton:pressed {
+            background-color: #00e5ff;
+        }    
+        
+    QTabWidget{
+        border-style: outset;
+        border-width: 2px;
+        border-color: rgb(0, 0, 0);
+    }
+    
+    QFrame#cmdop{
+        border-style: outset;
+        border-width: 2px;
+        border-color: rgb(0, 0, 0);
+
+    }
+    
+    """
+    app.setStyleSheet(stylesheet)
     w = MainApp()
-    qtmodern.styles.dark(app)
-    mw = qtmodern.windows.ModernWindow(w)
-    mw.show()
+    w.show()
     sys.exit(app.exec_())
