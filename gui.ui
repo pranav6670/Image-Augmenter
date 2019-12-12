@@ -29,15 +29,15 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>60</x>
+      <x>40</x>
       <y>10</y>
-      <width>651</width>
+      <width>671</width>
       <height>91</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <family>Ubuntu Mono</family>
+      <family>Roboto</family>
       <pointsize>55</pointsize>
       <weight>50</weight>
       <bold>false</bold>
@@ -117,7 +117,7 @@ color: rgb(0, 0, 0);
     </property>
     <property name="font">
      <font>
-      <family>Ubuntu Mono</family>
+      <family>Roboto</family>
       <pointsize>16</pointsize>
       <weight>50</weight>
       <bold>false</bold>
@@ -1167,7 +1167,7 @@ color: rgb(0, 0, 0);
     </property>
     <property name="font">
      <font>
-      <family>Ubuntu Mono</family>
+      <family>Roboto</family>
       <pointsize>16</pointsize>
       <weight>50</weight>
       <bold>false</bold>
@@ -1192,7 +1192,7 @@ color: rgb(0, 0, 0);
     </property>
     <property name="font">
      <font>
-      <family>Ubuntu Mono</family>
+      <family>Roboto</family>
       <pointsize>15</pointsize>
      </font>
     </property>
@@ -1214,7 +1214,7 @@ color: rgb(0, 0, 0);
     </property>
     <property name="font">
      <font>
-      <family>Trebuchet MS</family>
+      <family>Roboto</family>
       <pointsize>14</pointsize>
      </font>
     </property>
@@ -1236,7 +1236,7 @@ color: rgb(0, 0, 0);
     </property>
     <property name="font">
      <font>
-      <family>Trebuchet MS</family>
+      <family>Roboto</family>
       <pointsize>14</pointsize>
      </font>
     </property>
@@ -1312,9 +1312,9 @@ color: rgb(186, 189, 182);</string>
     <property name="geometry">
      <rect>
       <x>72</x>
-      <y>83</y>
-      <width>621</width>
-      <height>16</height>
+      <y>97</y>
+      <width>601</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="orientation">
