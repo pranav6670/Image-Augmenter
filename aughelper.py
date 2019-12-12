@@ -720,7 +720,7 @@ def onlyaffine(dirName, extension, image):
 def callall(dirName, extension, image):
     onlypad(dirName, extension, image)
     onlyresize(dirName, extension, image)
-    onlycrop(dirName, extension, image)
+    # onlycrop(dirName, extension, image)
     onlyflip(dirName, extension, image)
     onlyhsi(dirName, extension, image)
     onlygc(dirName, extension, image)

@@ -4,6 +4,8 @@ import gui
 import os
 import sys
 import aughelper
+import qtmodern.styles
+import qtmodern.windows
 
 
 class Stream(QtCore.QObject):
@@ -32,8 +34,7 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
 
         self.dirName = 'Augmented'
         self.setWindowTitle("Image Augmenter")
-        self.setWindowIcon(QtGui.QIcon('icon.ico'))
-        # self.cmdop.setStyleSheet("QWidget{background-image: url(download.png);}")
+        self.setWindowIcon(QtGui.QIcon('icon.png'))
 
         if not os.path.exists(self.dirName):
             os.mkdir(self.dirName)
@@ -50,7 +51,7 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
         self.onaugmentclicked()
         self.onresize()
         self.onpad()
-        self.oncrop()
+        # self.oncrop()
         self.onflip()
         self.onhsi()
         self.ongc()
@@ -77,6 +78,7 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
         self.onskel()
         self.onaffine()
         self.oncc()
+        self.onedge()
         self.cleartext()
         if self.check == False:
             self.showim.setEnabled(False)
@@ -130,8 +132,8 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
     def onpad(self):
         self.pad.clicked.connect(lambda :aughelper.onlypad(self.dirName, self.extension, self.image))
 
-    def oncrop(self):
-        self.crop.clicked.connect(lambda :aughelper.onlycrop(self.dirName, self.extension, self.image))
+    # def oncrop(self):
+    #     self.crop.clicked.connect(lambda :aughelper.onlycrop(self.dirName, self.extension, self.image))
 
     def onflip(self):
         self.flip.clicked.connect(lambda :aughelper.onlyflip(self.dirName, self.extension, self.image))
@@ -231,67 +233,8 @@ class MainApp(QtWidgets.QMainWindow, gui.Ui_MainWindow):
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-
-    stylesheet = """
-    
-        QMainWindow{
-            background-color: #eeeeee; 
-        }
-        
-        QTabWidget{
-            background-color: #cfd8dc; 
-        }
-    
-        QFrame#cmdop{
-            background-color: #cfd8dc;
-            border-style: outset;
-            border-width: 2px;
-            border-color: rgb(0, 0, 0);
-        }
-    
-        QPushButton{
-            background-color: #b9f6ca; 
-        }
-        QPushButton:hover {
-            background-color: #69f0ae;
-        }
-        QPushButton:pressed {
-           background-color: #00e676;
-        }    
-    
-        QPushButton#augment{
-            background-color: #ffff8d; 
-        }
-        QPushButton#augment:hover {
-            background-color: #ffff00; 
-        }
-        QPushButton#augment:pressed {
-            background-color: #ffea00;
-        }    
-    
-        QPushButton#browse{
-            background-color: rgb(187, 255, 176); 
-        }
-        QPushButton#browse:hover {
-            background-color: rgb(151, 255, 128);
-        }
-        QPushButton#browse:pressed {
-            background-color: rgb(85, 255, 0);
-        }    
-    
-        QPushButton#quit{
-            background-color: #ff9e80;
-        }
-        QPushButton#quit:hover {
-            background-color: #ff6e40;
-        }
-        QPushButton#quit:pressed {
-            background-color: #ff3d00;
-        }    
-    
-    """
-
-    app.setStyleSheet(stylesheet)
     w = MainApp()
-    w.show()
+    qtmodern.styles.dark(app)
+    mw = qtmodern.windows.ModernWindow(w)
+    mw.show()
     sys.exit(app.exec_())
